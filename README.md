@@ -11,3 +11,5 @@ If you use VS: ctrl + F5
 - Orehov Arkady
 - Nikolaev Yaroslav
 - Abdullin Marsel
+
+It's amazing project
