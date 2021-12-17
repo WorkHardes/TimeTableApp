@@ -1,0 +1,12 @@
+C:\CSharp\TimetableOfClasses\TimetableOfClassesDomain\obj\Debug\net5.0\TimetableOfClasses.Domain.csproj.AssemblyReference.cache
+C:\CSharp\TimetableOfClasses\TimetableOfClassesDomain\obj\Debug\net5.0\TimetableOfClasses.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\CSharp\TimetableOfClasses\TimetableOfClassesDomain\obj\Debug\net5.0\TimetableOfClasses.Domain.AssemblyInfoInputs.cache
+C:\CSharp\TimetableOfClasses\TimetableOfClassesDomain\obj\Debug\net5.0\TimetableOfClasses.Domain.AssemblyInfo.cs
+C:\CSharp\TimetableOfClasses\TimetableOfClassesDomain\obj\Debug\net5.0\TimetableOfClasses.Domain.csproj.CoreCompileInputs.cache
+C:\CSharp\TimetableOfClasses\TimetableOfClassesDomain\bin\Debug\net5.0\TimetableOfClasses.Domain.deps.json
+C:\CSharp\TimetableOfClasses\TimetableOfClassesDomain\bin\Debug\net5.0\TimetableOfClasses.Domain.dll
+C:\CSharp\TimetableOfClasses\TimetableOfClassesDomain\bin\Debug\net5.0\ref\TimetableOfClasses.Domain.dll
+C:\CSharp\TimetableOfClasses\TimetableOfClassesDomain\bin\Debug\net5.0\TimetableOfClasses.Domain.pdb
+C:\CSharp\TimetableOfClasses\TimetableOfClassesDomain\obj\Debug\net5.0\TimetableOfClasses.Domain.dll
+C:\CSharp\TimetableOfClasses\TimetableOfClassesDomain\obj\Debug\net5.0\ref\TimetableOfClasses.Domain.dll
+C:\CSharp\TimetableOfClasses\TimetableOfClassesDomain\obj\Debug\net5.0\TimetableOfClasses.Domain.pdb
