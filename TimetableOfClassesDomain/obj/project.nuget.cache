@@ -1,12 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Ck1YXK3/QzdTB42zl2BmzPnMQzIo0/TrlzfEaMWCyrdAH91RR27kpXBLdEA7J9e8Cfqr/Z+EqhuI7Ms6zucYSA==",
+  "dgSpecHash": "d523RmrXeVHNqmj+XwL84lfz6fR9f/EkzjYx6E+3O1HkQegEGa859OTjN3OnRj1Lwv1R8A5juqzahhjh5+C/CQ==",
   "success": true,
   "projectFilePath": "C:\\CSharp\\TimetableOfClasses\\TimetableOfClassesDomain\\TimetableOfClasses.Domain.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\5.0.0\\microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512",
-    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\5.0.0\\microsoft.windowsdesktop.app.ref.5.0.0.nupkg.sha512",
-    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }
