@@ -55,7 +55,6 @@ C:\CSharp\TimetableOfClasses\TimetableOfClassesAPI\bin\Debug\net5.0\TimetableOfC
 C:\CSharp\TimetableOfClasses\TimetableOfClassesAPI\bin\Debug\net5.0\TimetableOfClasses.Infrastructure.pdb
 C:\CSharp\TimetableOfClasses\TimetableOfClassesAPI\obj\Debug\net5.0\TimetableOfClasses.API.MvcApplicationPartsAssemblyInfo.cs
 C:\CSharp\TimetableOfClasses\TimetableOfClassesAPI\obj\Debug\net5.0\staticwebassets\TimetableOfClasses.API.StaticWebAssets.Manifest.cache
-C:\CSharp\TimetableOfClasses\TimetableOfClassesAPI\obj\Debug\net5.0\staticwebassets\TimetableOfClasses.API.StaticWebAssets.xml
 C:\CSharp\TimetableOfClasses\TimetableOfClassesAPI\obj\Debug\net5.0\scopedcss\bundle\TimetableOfClasses.API.styles.css
 C:\CSharp\TimetableOfClasses\TimetableOfClassesAPI\obj\Debug\net5.0\TimetableOfClasses.API.RazorTargetAssemblyInfo.cache
 C:\CSharp\TimetableOfClasses\TimetableOfClassesAPI\obj\Debug\net5.0\TimetableOfClasses.API.csproj.CopyComplete
