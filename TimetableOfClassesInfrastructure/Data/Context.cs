@@ -11,12 +11,14 @@ namespace TimetableOfClasses.Infrastructure
         }
 
         public DbSet<Audience> Audiences { get; set;}
-        public DbSet<Teacher> Teachers { get; set;}
+        public DbSet<Lecturer> Teachers { get; set;}
         public DbSet<Group> Groups { get; set;}
-        public DbSet<Couple> Couples { get; set;}
+        public DbSet<ClassesTime> ClassesTimes { get; set;}
         public DbSet<Subject> Subjects { get; set;}
         public DbSet<TimeTable> TimeTables { get; set; }
+        public DbSet<Semester> Semesters { get; set; }
+        public DbSet<AcademicPlan> AcademicPlan { get; set; }
 
-        
+
     }
 }
