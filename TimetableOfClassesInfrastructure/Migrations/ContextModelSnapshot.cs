@@ -19,6 +19,35 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("TimetableOfClasses.Domain.AcademicPlan", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("NumOfLabs")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumOfLectures")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumOfPractices")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("SemesterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SubjectId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AcademicPlan");
+                });
+
             modelBuilder.Entity("TimetableOfClasses.Domain.Audience", b =>
                 {
                     b.Property<Guid>("Id")
@@ -28,11 +57,11 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                     b.Property<int>("AudienceNum")
                         .HasColumnType("int");
 
-                    b.Property<int>("MaxNumOfSeats")
-                        .HasColumnType("int");
-
                     b.Property<Guid>("TimeTableId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -41,7 +70,7 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                     b.ToTable("Audiences");
                 });
 
-            modelBuilder.Entity("TimetableOfClasses.Domain.Couple", b =>
+            modelBuilder.Entity("TimetableOfClasses.Domain.ClassesTime", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,11 +79,11 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                     b.Property<DateTime>("BeginTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("ClassTimeNum")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("TimeTableId")
                         .HasColumnType("uniqueidentifier");
@@ -63,7 +92,7 @@ namespace TimetableOfClasses.Infrastructure.Migrations
 
                     b.HasIndex("TimeTableId");
 
-                    b.ToTable("Couples");
+                    b.ToTable("ClassesTimes");
                 });
 
             modelBuilder.Entity("TimetableOfClasses.Domain.Group", b =>
@@ -72,42 +101,28 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AcademicPlanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("GroupNum")
+                        .HasColumnType("int");
+
                     b.Property<int>("NumOfStudent")
                         .HasColumnType("int");
 
                     b.Property<Guid>("TimeTableId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("AcademicPlanId");
 
                     b.HasIndex("TimeTableId");
 
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("TimetableOfClasses.Domain.Subject", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TimeTableId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TimeTableId");
-
-                    b.ToTable("Subjects");
-                });
-
-            modelBuilder.Entity("TimetableOfClasses.Domain.Teacher", b =>
+            modelBuilder.Entity("TimetableOfClasses.Domain.Lecturer", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -132,6 +147,57 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                     b.ToTable("Teachers");
                 });
 
+            modelBuilder.Entity("TimetableOfClasses.Domain.Semester", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AcademicPlanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TimeTableId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AcademicPlanId");
+
+                    b.HasIndex("TimeTableId");
+
+                    b.ToTable("Semesters");
+                });
+
+            modelBuilder.Entity("TimetableOfClasses.Domain.Subject", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AcademicPlanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TimeTableId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AcademicPlanId");
+
+                    b.HasIndex("TimeTableId");
+
+                    b.ToTable("Subjects");
+                });
+
             modelBuilder.Entity("TimetableOfClasses.Domain.TimeTable", b =>
                 {
                     b.Property<Guid>("Id")
@@ -141,16 +207,22 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                     b.Property<Guid>("AudienceId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CoupleId")
+                    b.Property<Guid>("ClassTimeNum")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DayOfTheWeek")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("GroupId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SubjectId")
+                    b.Property<Guid>("LecturerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("TeacherId")
+                    b.Property<Guid>("SubjectId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -169,10 +241,10 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                     b.Navigation("TimeTable");
                 });
 
-            modelBuilder.Entity("TimetableOfClasses.Domain.Couple", b =>
+            modelBuilder.Entity("TimetableOfClasses.Domain.ClassesTime", b =>
                 {
                     b.HasOne("TimetableOfClasses.Domain.TimeTable", "TimeTable")
-                        .WithMany("Couples")
+                        .WithMany("ClassTimes")
                         .HasForeignKey("TimeTableId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -182,48 +254,92 @@ namespace TimetableOfClasses.Infrastructure.Migrations
 
             modelBuilder.Entity("TimetableOfClasses.Domain.Group", b =>
                 {
+                    b.HasOne("TimetableOfClasses.Domain.AcademicPlan", "AcademicPlan")
+                        .WithMany("Groups")
+                        .HasForeignKey("AcademicPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TimetableOfClasses.Domain.TimeTable", "TimeTable")
                         .WithMany("Groups")
                         .HasForeignKey("TimeTableId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("AcademicPlan");
+
+                    b.Navigation("TimeTable");
+                });
+
+            modelBuilder.Entity("TimetableOfClasses.Domain.Lecturer", b =>
+                {
+                    b.HasOne("TimetableOfClasses.Domain.TimeTable", "TimeTable")
+                        .WithMany("Lecturers")
+                        .HasForeignKey("TimeTableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TimeTable");
+                });
+
+            modelBuilder.Entity("TimetableOfClasses.Domain.Semester", b =>
+                {
+                    b.HasOne("TimetableOfClasses.Domain.AcademicPlan", "AcademicPlan")
+                        .WithMany("Semesters")
+                        .HasForeignKey("AcademicPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TimetableOfClasses.Domain.TimeTable", "TimeTable")
+                        .WithMany()
+                        .HasForeignKey("TimeTableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AcademicPlan");
+
                     b.Navigation("TimeTable");
                 });
 
             modelBuilder.Entity("TimetableOfClasses.Domain.Subject", b =>
                 {
+                    b.HasOne("TimetableOfClasses.Domain.AcademicPlan", "AcademicPlan")
+                        .WithMany("Subjects")
+                        .HasForeignKey("AcademicPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TimetableOfClasses.Domain.TimeTable", "TimeTable")
                         .WithMany("Subjects")
                         .HasForeignKey("TimeTableId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("AcademicPlan");
+
                     b.Navigation("TimeTable");
                 });
 
-            modelBuilder.Entity("TimetableOfClasses.Domain.Teacher", b =>
+            modelBuilder.Entity("TimetableOfClasses.Domain.AcademicPlan", b =>
                 {
-                    b.HasOne("TimetableOfClasses.Domain.TimeTable", "TimeTable")
-                        .WithMany("Teachers")
-                        .HasForeignKey("TimeTableId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Groups");
 
-                    b.Navigation("TimeTable");
+                    b.Navigation("Semesters");
+
+                    b.Navigation("Subjects");
                 });
 
             modelBuilder.Entity("TimetableOfClasses.Domain.TimeTable", b =>
                 {
                     b.Navigation("Audiences");
 
-                    b.Navigation("Couples");
+                    b.Navigation("ClassTimes");
 
                     b.Navigation("Groups");
 
-                    b.Navigation("Subjects");
+                    b.Navigation("Lecturers");
 
-                    b.Navigation("Teachers");
+                    b.Navigation("Subjects");
                 });
 #pragma warning restore 612, 618
         }

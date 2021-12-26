@@ -2,13 +2,14 @@
 
 namespace TimetableOfClasses.Domain
 {
-    public class Couple
+    public class Lecturer
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public DateTime BeginTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public string FirstName { get; set; }
+        public string SecondName { get; set; }
+        public string Patronymic { get; set; }
 
+        // Navigation Properties
         public Guid TimeTableId { get; set; }
         public TimeTable TimeTable { get; set; }
     }

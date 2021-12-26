@@ -8,15 +8,34 @@ namespace TimetableOfClasses.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AcademicPlan",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    NumOfLectures = table.Column<int>(type: "int", nullable: false),
+                    NumOfPractices = table.Column<int>(type: "int", nullable: false),
+                    NumOfLabs = table.Column<int>(type: "int", nullable: false),
+                    SemesterId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AcademicPlan", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TimeTables",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AudienceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LecturerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClassTimeNum = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CoupleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DayOfTheWeek = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -29,7 +48,7 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AudienceNum = table.Column<int>(type: "int", nullable: false),
-                    MaxNumOfSeats = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TimeTableId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -44,20 +63,20 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Couples",
+                name: "ClassesTimes",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClassTimeNum = table.Column<int>(type: "int", nullable: false),
                     BeginTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TimeTableId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Couples", x => x.Id);
+                    table.PrimaryKey("PK_ClassesTimes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Couples_TimeTables_TimeTableId",
+                        name: "FK_ClassesTimes_TimeTables_TimeTableId",
                         column: x => x.TimeTableId,
                         principalTable: "TimeTables",
                         principalColumn: "Id",
@@ -69,15 +88,49 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GroupNum = table.Column<int>(type: "int", nullable: false),
                     NumOfStudent = table.Column<int>(type: "int", nullable: false),
-                    TimeTableId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    TimeTableId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AcademicPlanId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Groups", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Groups_AcademicPlan_AcademicPlanId",
+                        column: x => x.AcademicPlanId,
+                        principalTable: "AcademicPlan",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Groups_TimeTables_TimeTableId",
+                        column: x => x.TimeTableId,
+                        principalTable: "TimeTables",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Semesters",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    TimeTableId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AcademicPlanId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Semesters", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Semesters_AcademicPlan_AcademicPlanId",
+                        column: x => x.AcademicPlanId,
+                        principalTable: "AcademicPlan",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Semesters_TimeTables_TimeTableId",
                         column: x => x.TimeTableId,
                         principalTable: "TimeTables",
                         principalColumn: "Id",
@@ -90,11 +143,18 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TimeTableId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    TimeTableId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AcademicPlanId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Subjects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subjects_AcademicPlan_AcademicPlanId",
+                        column: x => x.AcademicPlanId,
+                        principalTable: "AcademicPlan",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Subjects_TimeTables_TimeTableId",
                         column: x => x.TimeTableId,
@@ -130,14 +190,34 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                 column: "TimeTableId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Couples_TimeTableId",
-                table: "Couples",
+                name: "IX_ClassesTimes_TimeTableId",
+                table: "ClassesTimes",
                 column: "TimeTableId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Groups_AcademicPlanId",
+                table: "Groups",
+                column: "AcademicPlanId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Groups_TimeTableId",
                 table: "Groups",
                 column: "TimeTableId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Semesters_AcademicPlanId",
+                table: "Semesters",
+                column: "AcademicPlanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Semesters_TimeTableId",
+                table: "Semesters",
+                column: "TimeTableId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subjects_AcademicPlanId",
+                table: "Subjects",
+                column: "AcademicPlanId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Subjects_TimeTableId",
@@ -156,16 +236,22 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                 name: "Audiences");
 
             migrationBuilder.DropTable(
-                name: "Couples");
+                name: "ClassesTimes");
 
             migrationBuilder.DropTable(
                 name: "Groups");
+
+            migrationBuilder.DropTable(
+                name: "Semesters");
 
             migrationBuilder.DropTable(
                 name: "Subjects");
 
             migrationBuilder.DropTable(
                 name: "Teachers");
+
+            migrationBuilder.DropTable(
+                name: "AcademicPlan");
 
             migrationBuilder.DropTable(
                 name: "TimeTables");

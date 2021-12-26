@@ -1,13 +1,12 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace TimetableOfClasses.Domain
 {
-    public class Group
+    public class Semester
     {
         public Guid Id { get; set; }
-        public int GroupNum { get; set; }
-        public int NumOfStudent { get; set; }
+        public string Type { get; set; }
+        public int Year { get; set; }
 
         // Navigation Properties
         public Guid TimeTableId { get; set; }
