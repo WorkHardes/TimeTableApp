@@ -1,42 +1,56 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
+using TimetableOfClasses.Domain;
+using TimetableOfClasses.Infrastructure.Repository;
+
 namespace TimetableOfClasses.API.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    public class AudienceController : ControllerBase
+    [ApiController] 
+    public class AudiencesController : Controller
     {
+        private IAudienceRepository audienceRepository;
+
+        public AudiencesController(IAudienceRepository audienceRepository)
+        {
+            this.audienceRepository = audienceRepository;
+        }
+
         // GET: api/<AudienceController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Audience> GetAudiences()
         {
-            return new string[] { "value1", "value2" };
+            return audienceRepository.GetAudiences();
         }
 
         // GET api/<AudienceController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{audienceId}")]
+        public Audience GetAudienceByID(int audienceId)
         {
-            return "value";
+            return audienceRepository.GetAudienceByID(audienceId);
         }
 
         // POST api/<AudienceController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void AddAudience(Audience audience)
         {
+            audienceRepository.AddAudience(audience);
         }
 
         // PUT api/<AudienceController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{audienceId}")]
+        public Audience UpdateAudience(int audienceId, [FromBody] Audience audience)
         {
+            audienceRepository.UpdateAudience(audienceId, audience);
+            return audienceRepository.GetAudienceByID(audienceId);
         }
 
         // DELETE api/<AudienceController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{audienceId}")]
+        public void Delete(int audienceId)
         {
+            audienceRepository.DeleteAudience(audienceId);
         }
     }
 }

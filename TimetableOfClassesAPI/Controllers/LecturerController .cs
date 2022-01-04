@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace TimetableOfClasses.API.Controllers
+using TimetableOfClasses.Domain;
+using TimetableOfClasses.Infrastructure;
+
+namespace TimetableOfClasses.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

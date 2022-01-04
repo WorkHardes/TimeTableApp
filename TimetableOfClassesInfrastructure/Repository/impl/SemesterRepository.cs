@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TimetableOfClasses.Infrastructure.Repository
+namespace TimetableOfClasses.Infrastructure.Repository.impl
 {
-    public class ClassesTimeRepository
+    public class SemesterRepository
     {
     }
 }
