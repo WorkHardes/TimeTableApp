@@ -53,5 +53,12 @@ namespace TimetableOfClasses.API.Controllers
         {
             timeTableRepository.DeleteTimeTable(timeTableId);
         }
+
+        // POST api/<TimeTableController>
+        [HttpPost("/functions/generate")]
+        public void GenerateTimeTable()
+        {
+            timeTableRepository.GenerateTimeTable();
+        }
     }
 }
