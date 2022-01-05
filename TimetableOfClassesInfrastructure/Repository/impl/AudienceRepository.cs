@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using TimetableOfClasses.Domain;
@@ -19,7 +20,7 @@ namespace TimetableOfClasses.Infrastructure.Repository.impl
             return context.Audiences.ToList();
         }
 
-        public Audience GetAudienceByID(int audienceId)
+        public Audience GetAudienceByID(Guid audienceId)
         {
             return context.Audiences.Find(audienceId);
         }
@@ -31,17 +32,18 @@ namespace TimetableOfClasses.Infrastructure.Repository.impl
             context.SaveChanges();
         }
 
-        public void UpdateAudience(int id, Audience newAudience)
+        public void UpdateAudience(Guid audienceId, Audience newAudience)
         {
-            Audience audience = context.Audiences.Find(id);
+            Audience audience = context.Audiences.Find(audienceId);
+
             audience.AudienceNum = newAudience.AudienceNum;
             audience.Type = newAudience.Type;
-            context.Audiences.Update(audience);
 
+            context.Audiences.Update(audience);
             context.SaveChanges();
         }
 
-        public void DeleteAudience(int audienceId)
+        public void DeleteAudience(Guid audienceId)
         {
             Audience audience = context.Audiences.Find(audienceId);
             context.Audiences.Remove(audience);

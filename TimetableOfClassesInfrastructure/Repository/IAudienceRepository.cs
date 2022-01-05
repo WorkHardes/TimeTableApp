@@ -1,14 +1,17 @@
-﻿using TimetableOfClasses.Domain;
+﻿using System;
 using System.Collections.Generic;
+
+using TimetableOfClasses.Domain;
+
 
 namespace TimetableOfClasses.Infrastructure.Repository
 {
     public interface IAudienceRepository
     {
         public IEnumerable<Audience> GetAudiences();
-        Audience GetAudienceByID(int audienceId);
+        Audience GetAudienceByID(Guid audienceId);
         void AddAudience(Audience audience);
-        void UpdateAudience(int id, Audience newAudience);
-        void DeleteAudience(int classId);
+        void UpdateAudience(Guid audienceid, Audience newAudience);
+        void DeleteAudience(Guid audienceId);
     }
 }

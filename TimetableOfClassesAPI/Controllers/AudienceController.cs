@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 using TimetableOfClasses.Domain;
@@ -26,7 +27,7 @@ namespace TimetableOfClasses.API.Controllers
 
         // GET api/<AudienceController>/5
         [HttpGet("{audienceId}")]
-        public Audience GetAudienceByID(int audienceId)
+        public Audience GetAudienceByID(Guid audienceId)
         {
             return audienceRepository.GetAudienceByID(audienceId);
         }
@@ -40,7 +41,7 @@ namespace TimetableOfClasses.API.Controllers
 
         // PUT api/<AudienceController>/5
         [HttpPut("{audienceId}")]
-        public Audience UpdateAudience(int audienceId, [FromBody] Audience audience)
+        public Audience UpdateAudience(Guid audienceId, [FromBody] Audience audience)
         {
             audienceRepository.UpdateAudience(audienceId, audience);
             return audienceRepository.GetAudienceByID(audienceId);
@@ -48,7 +49,7 @@ namespace TimetableOfClasses.API.Controllers
 
         // DELETE api/<AudienceController>/5
         [HttpDelete("{audienceId}")]
-        public void Delete(int audienceId)
+        public void Delete(Guid audienceId)
         {
             audienceRepository.DeleteAudience(audienceId);
         }
