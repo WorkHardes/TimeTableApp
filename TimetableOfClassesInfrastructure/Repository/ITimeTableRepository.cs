@@ -13,5 +13,6 @@ namespace TimetableOfClasses.Infrastructure.Repository
         void AddTimeTable(TimeTable timeTable);
         void UpdateTimeTable(Guid timeTableid, TimeTable newTimeTable);
         void DeleteTimeTable(Guid timeTableId);
+        void GenerateTimeTable();
     }
 }

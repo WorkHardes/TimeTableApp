@@ -55,5 +55,11 @@ namespace TimetableOfClasses.Infrastructure.Repository.impl
 
             context.SaveChanges();
         }
+
+        public void GenerateTimeTable()
+        {
+            int a = 1;
+            a++;
+        }
     }
 }
