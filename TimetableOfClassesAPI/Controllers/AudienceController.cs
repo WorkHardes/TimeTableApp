@@ -8,7 +8,7 @@ using TimetableOfClasses.Infrastructure.Repository;
 namespace TimetableOfClasses.API.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController] 
+    [ApiController]
     public class AudiencesController : Controller
     {
         private IAudienceRepository audienceRepository;

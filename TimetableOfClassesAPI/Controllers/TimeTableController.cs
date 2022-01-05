@@ -1,45 +1,57 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 using TimetableOfClasses.Domain;
-using TimetableOfClasses.Infrastructure;
+using TimetableOfClasses.Infrastructure.Repository;
 
-namespace TimetableOfClasses.Controllers
+namespace TimetableOfClasses.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TimeTableController : ControllerBase
+    public class TimeTablesController : Controller
     {
-        // GET: api/<ValuesController>
+        private ITimeTableRepository timeTableRepository;
+
+        public TimeTablesController(ITimeTableRepository timeTableRepository)
+        {
+            this.timeTableRepository = timeTableRepository;
+        }
+
+        // GET: api/<TimeTableController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<TimeTable> GetTimeTables()
         {
-            return new string[] { "value1", "value2" };
+            return timeTableRepository.GetTimeTables();
         }
 
-        // GET api/<ValuesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/<TimeTableController>/5
+        [HttpGet("{timeTableId}")]
+        public TimeTable GetTimeTableByID(Guid timeTableId)
         {
-            return "value";
+            return timeTableRepository.GetTimeTableByID(timeTableId);
         }
 
-        // POST api/<ValuesController>
+        // POST api/<TimeTableController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void AddTimeTable(TimeTable timeTable)
         {
+            timeTableRepository.AddTimeTable(timeTable);
         }
 
-        // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<TimeTableController>/5
+        [HttpPut("{timeTableId}")]
+        public TimeTable UpdateTimeTable(Guid timeTableId, [FromBody] TimeTable timeTable)
         {
+            timeTableRepository.UpdateTimeTable(timeTableId, timeTable);
+            return timeTableRepository.GetTimeTableByID(timeTableId);
         }
 
-        // DELETE api/<ValuesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/<TimeTableController>/5
+        [HttpDelete("{timeTableId}")]
+        public void Delete(Guid timeTableId)
         {
+            timeTableRepository.DeleteTimeTable(timeTableId);
         }
     }
 }

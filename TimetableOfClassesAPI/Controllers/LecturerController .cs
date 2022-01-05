@@ -1,45 +1,57 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 using TimetableOfClasses.Domain;
-using TimetableOfClasses.Infrastructure;
+using TimetableOfClasses.Infrastructure.Repository;
 
-namespace TimetableOfClasses.Controllers
+namespace TimetableOfClasses.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LecturerController : ControllerBase
+    public class LecturersController : Controller
     {
-        // GET: api/<ValuesController>
+        private ILecturerRepository lecturerRepository;
+
+        public LecturersController(ILecturerRepository lecturerRepository)
+        {
+            this.lecturerRepository = lecturerRepository;
+        }
+
+        // GET: api/<LecturerController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Lecturer> GetLecturers()
         {
-            return new string[] { "value1", "value2" };
+            return lecturerRepository.GetLecturers();
         }
 
-        // GET api/<ValuesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/<LecturerController>/5
+        [HttpGet("{lecturerId}")]
+        public Lecturer GetLecturerByID(Guid lecturerId)
         {
-            return "value";
+            return lecturerRepository.GetLecturerByID(lecturerId);
         }
 
-        // POST api/<ValuesController>
+        // POST api/<LecturerController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void AddLecturer(Lecturer lecturer)
         {
+            lecturerRepository.AddLecturer(lecturer);
         }
 
-        // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<LecturerController>/5
+        [HttpPut("{lecturerId}")]
+        public Lecturer UpdateLecturer(Guid lecturerId, [FromBody] Lecturer lecturer)
         {
+            lecturerRepository.UpdateLecturer(lecturerId, lecturer);
+            return lecturerRepository.GetLecturerByID(lecturerId);
         }
 
-        // DELETE api/<ValuesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/<LecturerController>/5
+        [HttpDelete("{lecturerId}")]
+        public void Delete(Guid lecturerId)
         {
+            lecturerRepository.DeleteLecturer(lecturerId);
         }
     }
 }

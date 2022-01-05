@@ -1,45 +1,57 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 using TimetableOfClasses.Domain;
-using TimetableOfClasses.Infrastructure;
+using TimetableOfClasses.Infrastructure.Repository;
 
-namespace TimetableOfClasses.Controllers
+namespace TimetableOfClasses.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GroupController : ControllerBase
+    public class GroupsController : Controller
     {
+        private IGroupRepository groupRepository;
+
+        public GroupsController(IGroupRepository groupRepository)
+        {
+            this.groupRepository = groupRepository;
+        }
+
         // GET: api/<GroupController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Group> GetGroups()
         {
-            return new string[] { "value1", "value2" };
+            return groupRepository.GetGroups();
         }
 
         // GET api/<GroupController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{groupId}")]
+        public Group GetGroupByID(Guid groupId)
         {
-            return "value";
+            return groupRepository.GetGroupByID(groupId);
         }
 
         // POST api/<GroupController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void AddGroup(Group group)
         {
+            groupRepository.AddGroup(group);
         }
 
         // PUT api/<GroupController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{groupId}")]
+        public Group UpdateGroup(Guid groupId, [FromBody] Group group)
         {
+            groupRepository.UpdateGroup(groupId, group);
+            return groupRepository.GetGroupByID(groupId);
         }
 
         // DELETE api/<GroupController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{groupId}")]
+        public void Delete(Guid groupId)
         {
+            groupRepository.DeleteGroup(groupId);
         }
     }
 }
