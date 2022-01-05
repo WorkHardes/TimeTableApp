@@ -8,10 +8,10 @@ namespace TimetableOfClasses.Domain
         public Guid Id { get; set; }
         public Guid GroupId { get; set; }
         public Guid SubjectId { get; set; }
+        public Guid SemesterId { get; set; }
         public int NumOfLectures { get; set; }
         public int NumOfPractices { get; set; }
         public int NumOfLabs { get; set; }
-        public Guid SemesterId { get; set; }
 
         // Navigation Properties
         public List<Group> Groups { get; set; }

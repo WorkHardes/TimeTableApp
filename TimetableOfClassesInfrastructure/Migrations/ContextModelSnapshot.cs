@@ -45,7 +45,7 @@ namespace TimetableOfClasses.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AcademicPlan");
+                    b.ToTable("AcademicPlans");
                 });
 
             modelBuilder.Entity("TimetableOfClasses.Domain.Audience", b =>
@@ -79,7 +79,7 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                     b.Property<DateTime>("BeginTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ClassTimeNum")
+                    b.Property<int>("ClassesTimeNum")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EndTime")
@@ -144,7 +144,7 @@ namespace TimetableOfClasses.Infrastructure.Migrations
 
                     b.HasIndex("TimeTableId");
 
-                    b.ToTable("Teachers");
+                    b.ToTable("Lecturers");
                 });
 
             modelBuilder.Entity("TimetableOfClasses.Domain.Semester", b =>
@@ -207,7 +207,7 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                     b.Property<Guid>("AudienceId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ClassTimeNum")
+                    b.Property<Guid>("ClassesTimeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
@@ -244,7 +244,7 @@ namespace TimetableOfClasses.Infrastructure.Migrations
             modelBuilder.Entity("TimetableOfClasses.Domain.ClassesTime", b =>
                 {
                     b.HasOne("TimetableOfClasses.Domain.TimeTable", "TimeTable")
-                        .WithMany("ClassTimes")
+                        .WithMany("ClassesTimes")
                         .HasForeignKey("TimeTableId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -333,7 +333,7 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                 {
                     b.Navigation("Audiences");
 
-                    b.Navigation("ClassTimes");
+                    b.Navigation("ClassesTimes");
 
                     b.Navigation("Groups");
 

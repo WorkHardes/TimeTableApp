@@ -4,8 +4,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-
 using Microsoft.EntityFrameworkCore;
+
+using TimetableOfClasses.Infrastructure.Repository;
+using TimetableOfClasses.Infrastructure.Repository.impl;
 
 namespace TimetableOfClasses.API
 {
@@ -25,6 +27,8 @@ namespace TimetableOfClasses.API
             services.AddControllers();
 
             services.AddDbContext<TimetableOfClasses.Infrastructure.Context>(options => options.UseSqlServer(Configuration.GetConnectionString("TimetableOfClasses")));
+
+            services.AddScoped<IAudienceRepository, AudienceRepository>();
 
             services.AddSwaggerGen(c =>
             {

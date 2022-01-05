@@ -1,42 +1,57 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+
+using TimetableOfClasses.Domain;
+using TimetableOfClasses.Infrastructure.Repository;
 
 namespace TimetableOfClasses.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SubjectController : ControllerBase
+    public class SubjectsController : Controller
     {
-        // GET: api/<ValuesController>
+        private ISubjectRepository subjectRepository;
+
+        public SubjectsController(ISubjectRepository subjectRepository)
+        {
+            this.subjectRepository = subjectRepository;
+        }
+
+        // GET: api/<SubjectController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Subject> GetSubjects()
         {
-            return new string[] { "value1", "value2" };
+            return subjectRepository.GetSubjects();
         }
 
-        // GET api/<ValuesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/<SubjectController>/5
+        [HttpGet("{subjectId}")]
+        public Subject GetSubjectByID(Guid subjectId)
         {
-            return "value";
+            return subjectRepository.GetSubjectByID(subjectId);
         }
 
-        // POST api/<ValuesController>
+        // POST api/<SubjectController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void AddSubject(Subject subject)
         {
+            subjectRepository.AddSubject(subject);
         }
 
-        // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<SubjectController>/5
+        [HttpPut("{subjectId}")]
+        public Subject UpdateSubject(Guid subjectId, [FromBody] Subject subject)
         {
+            subjectRepository.UpdateSubject(subjectId, subject);
+            return subjectRepository.GetSubjectByID(subjectId);
         }
 
-        // DELETE api/<ValuesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/<SubjectController>/5
+        [HttpDelete("{subjectId}")]
+        public void Delete(Guid subjectId)
         {
+            subjectRepository.DeleteSubject(subjectId);
         }
     }
 }

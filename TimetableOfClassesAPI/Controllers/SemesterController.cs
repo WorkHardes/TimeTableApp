@@ -1,42 +1,57 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+
+using TimetableOfClasses.Domain;
+using TimetableOfClasses.Infrastructure.Repository;
 
 namespace TimetableOfClasses.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SemesterController : ControllerBase
+    public class SemestersController : Controller
     {
-        // GET: api/<ValuesController>
+        private ISemesterRepository semesterRepository;
+
+        public SemestersController(ISemesterRepository semesterRepository)
+        {
+            this.semesterRepository = semesterRepository;
+        }
+
+        // GET: api/<SemesterController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Semester> GetSemesters()
         {
-            return new string[] { "value1", "value2" };
+            return semesterRepository.GetSemesters();
         }
 
-        // GET api/<ValuesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/<SemesterController>/5
+        [HttpGet("{semesterId}")]
+        public Semester GetSemesterByID(Guid semesterId)
         {
-            return "value";
+            return semesterRepository.GetSemesterByID(semesterId);
         }
 
-        // POST api/<ValuesController>
+        // POST api/<SemesterController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void AddSemester(Semester semester)
         {
+            semesterRepository.AddSemester(semester);
         }
 
-        // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<SemesterController>/5
+        [HttpPut("{semesterId}")]
+        public Semester UpdateSemester(Guid semesterId, [FromBody] Semester semester)
         {
+            semesterRepository.UpdateSemester(semesterId, semester);
+            return semesterRepository.GetSemesterByID(semesterId);
         }
 
-        // DELETE api/<ValuesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/<SemesterController>/5
+        [HttpDelete("{semesterId}")]
+        public void Delete(Guid semesterId)
         {
+            semesterRepository.DeleteSemester(semesterId);
         }
     }
 }
