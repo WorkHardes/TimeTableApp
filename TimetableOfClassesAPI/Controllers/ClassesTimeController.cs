@@ -7,7 +7,7 @@ using TimetableOfClasses.Infrastructure.Repository;
 
 namespace TimetableOfClasses.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class ClassesTimesController : Controller
     {
@@ -19,28 +19,28 @@ namespace TimetableOfClasses.API.Controllers
         }
 
         // GET: api/<ClassesTimeController>
-        [HttpGet]
+        [HttpGet("all")]
         public IEnumerable<ClassesTime> GetClassesTimes()
         {
             return classesTimeRepository.GetClassesTimes();
         }
 
         // GET api/<ClassesTimeController>/5
-        [HttpGet("{classesTimeId}")]
+        [HttpGet("detail/{classesTimeId}")]
         public ClassesTime GetClassesTimeByID(Guid classesTimeId)
         {
             return classesTimeRepository.GetClassesTimeByID(classesTimeId);
         }
 
         // POST api/<ClassesTimeController>
-        [HttpPost]
+        [HttpPost("create")]
         public void AddClassesTime(ClassesTime classesTime)
         {
             classesTimeRepository.AddClassesTime(classesTime);
         }
 
         // PUT api/<ClassesTimeController>/5
-        [HttpPut("{classesTimeId}")]
+        [HttpPut("detail/{classesTimeId}")]
         public ClassesTime UpdateClassesTime(Guid classesTimeId, [FromBody] ClassesTime classesTime)
         {
             classesTimeRepository.UpdateClassesTime(classesTimeId, classesTime);
@@ -48,7 +48,7 @@ namespace TimetableOfClasses.API.Controllers
         }
 
         // DELETE api/<ClassesTimeController>/5
-        [HttpDelete("{classesTimeId}")]
+        [HttpDelete("detail/{classesTimeId}")]
         public void Delete(Guid classesTimeId)
         {
             classesTimeRepository.DeleteClassesTime(classesTimeId);

@@ -28,8 +28,15 @@ namespace TimetableOfClasses.API
 
             services.AddDbContext<TimetableOfClasses.Infrastructure.Context>(options => options.UseSqlServer(Configuration.GetConnectionString("TimetableOfClasses")));
 
+            services.AddScoped<ILecturerRepository, LecturerRepository>();
+            services.AddScoped <IClassesTimeRepository, ClassesTimeRepository> ();
             services.AddScoped<IAudienceRepository, AudienceRepository>();
-
+            services.AddScoped<ISemesterRepository, SemesterRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<ISubjectRepository, SubjectRepository>();
+            services.AddScoped<IAcademicPlanRepository, AcademicPlanRepository>();
+            services.AddScoped <ITimeTableRepository, TimeTableRepository> ();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TimetableOfClassesAPI", Version = "v1" });

@@ -14,5 +14,9 @@ namespace TimetableOfClasses.Infrastructure.Repository
         void UpdateTimeTable(Guid timeTableid, TimeTable newTimeTable);
         void DeleteTimeTable(Guid timeTableId);
         void GenerateTimeTable();
+        TimeTable GetTimeTableByLecturerID(Guid lecturerId);
+        TimeTable GetTimeTableByGroupID(Guid groupId);
+        TimeTable GetTimeTableByAudienceID(Guid audienceId);
+
     }
 }
