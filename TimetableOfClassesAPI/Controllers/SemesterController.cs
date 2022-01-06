@@ -7,7 +7,7 @@ using TimetableOfClasses.Infrastructure.Repository;
 
 namespace TimetableOfClasses.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class SemestersController : Controller
     {
@@ -19,28 +19,28 @@ namespace TimetableOfClasses.API.Controllers
         }
 
         // GET: api/<SemesterController>
-        [HttpGet]
+        [HttpGet("all")]
         public IEnumerable<Semester> GetSemesters()
         {
             return semesterRepository.GetSemesters();
         }
 
         // GET api/<SemesterController>/5
-        [HttpGet("{semesterId}")]
+        [HttpGet("detail/{semesterId}")]
         public Semester GetSemesterByID(Guid semesterId)
         {
             return semesterRepository.GetSemesterByID(semesterId);
         }
 
         // POST api/<SemesterController>
-        [HttpPost]
+        [HttpPost("create")]
         public void AddSemester(Semester semester)
         {
             semesterRepository.AddSemester(semester);
         }
 
         // PUT api/<SemesterController>/5
-        [HttpPut("{semesterId}")]
+        [HttpPut("detail/{semesterId}")]
         public Semester UpdateSemester(Guid semesterId, [FromBody] Semester semester)
         {
             semesterRepository.UpdateSemester(semesterId, semester);
@@ -48,7 +48,7 @@ namespace TimetableOfClasses.API.Controllers
         }
 
         // DELETE api/<SemesterController>/5
-        [HttpDelete("{semesterId}")]
+        [HttpDelete("detail/{semesterId}")]
         public void Delete(Guid semesterId)
         {
             semesterRepository.DeleteSemester(semesterId);

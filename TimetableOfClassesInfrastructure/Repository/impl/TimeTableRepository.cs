@@ -61,5 +61,17 @@ namespace TimetableOfClasses.Infrastructure.Repository.impl
             int a = 1;
             a++;
         }
+        public TimeTable GetTimeTableByLecturerID(Guid lecturerId)
+        {
+            return context.TimeTables.Find(lecturerId);
+        }
+        public TimeTable GetTimeTableByGroupID(Guid groupId)
+        {
+            return context.TimeTables.Find(groupId);
+        }
+        public TimeTable GetTimeTableByAudienceID(Guid audienceId)
+        {
+            return context.TimeTables.Find(audienceId);
+        }
     }
 }

@@ -7,7 +7,7 @@ using TimetableOfClasses.Infrastructure.Repository;
 
 namespace TimetableOfClasses.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class LecturersController : Controller
     {
@@ -19,28 +19,28 @@ namespace TimetableOfClasses.API.Controllers
         }
 
         // GET: api/<LecturerController>
-        [HttpGet]
+        [HttpGet("all")]
         public IEnumerable<Lecturer> GetLecturers()
         {
             return lecturerRepository.GetLecturers();
         }
 
         // GET api/<LecturerController>/5
-        [HttpGet("{lecturerId}")]
+        [HttpGet("detail/{lecturerId}")]
         public Lecturer GetLecturerByID(Guid lecturerId)
         {
             return lecturerRepository.GetLecturerByID(lecturerId);
         }
 
         // POST api/<LecturerController>
-        [HttpPost]
+        [HttpPost("create")]
         public void AddLecturer(Lecturer lecturer)
         {
             lecturerRepository.AddLecturer(lecturer);
         }
 
         // PUT api/<LecturerController>/5
-        [HttpPut("{lecturerId}")]
+        [HttpPut("detail/{lecturerId}")]
         public Lecturer UpdateLecturer(Guid lecturerId, [FromBody] Lecturer lecturer)
         {
             lecturerRepository.UpdateLecturer(lecturerId, lecturer);
@@ -48,7 +48,7 @@ namespace TimetableOfClasses.API.Controllers
         }
 
         // DELETE api/<LecturerController>/5
-        [HttpDelete("{lecturerId}")]
+        [HttpDelete("detail/{lecturerId}")]
         public void Delete(Guid lecturerId)
         {
             lecturerRepository.DeleteLecturer(lecturerId);

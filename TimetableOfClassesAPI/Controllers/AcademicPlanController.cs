@@ -7,7 +7,7 @@ using TimetableOfClasses.Infrastructure.Repository;
 
 namespace TimetableOfClasses.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class AcademicPlansController : Controller
     {
@@ -19,28 +19,28 @@ namespace TimetableOfClasses.API.Controllers
         }
 
         // GET: api/<AcademicPlanController>
-        [HttpGet]
+        [HttpGet("all")]
         public IEnumerable<AcademicPlan> GetAcademicPlans()
         {
             return academicPlanRepository.GetAcademicPlans();
         }
 
         // GET api/<AcademicPlanController>/5
-        [HttpGet("{academicPlanId}")]
+        [HttpGet("detail/{academicPlanId}")]
         public AcademicPlan GetAcademicPlanByID(Guid academicPlanId)
         {
             return academicPlanRepository.GetAcademicPlanByID(academicPlanId);
         }
 
         // POST api/<AcademicPlanController>
-        [HttpPost]
+        [HttpPost("create")]
         public void AddAcademicPlan(AcademicPlan academicPlan)
         {
             academicPlanRepository.AddAcademicPlan(academicPlan);
         }
 
         // PUT api/<AcademicPlanController>/5
-        [HttpPut("{academicPlanId}")]
+        [HttpPut("detail/{academicPlanId}")]
         public AcademicPlan UpdateAcademicPlan(Guid academicPlanId, [FromBody] AcademicPlan academicPlan)
         {
             academicPlanRepository.UpdateAcademicPlan(academicPlanId, academicPlan);
@@ -48,7 +48,7 @@ namespace TimetableOfClasses.API.Controllers
         }
 
         // DELETE api/<AcademicPlanController>/5
-        [HttpDelete("{academicPlanId}")]
+        [HttpDelete("detail/{academicPlanId}")]
         public void Delete(Guid academicPlanId)
         {
             academicPlanRepository.DeleteAcademicPlan(academicPlanId);

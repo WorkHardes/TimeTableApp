@@ -7,7 +7,7 @@ using TimetableOfClasses.Infrastructure.Repository;
 
 namespace TimetableOfClasses.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class GroupsController : Controller
     {
@@ -19,28 +19,28 @@ namespace TimetableOfClasses.API.Controllers
         }
 
         // GET: api/<GroupController>
-        [HttpGet]
+        [HttpGet("all")]
         public IEnumerable<Group> GetGroups()
         {
             return groupRepository.GetGroups();
         }
 
         // GET api/<GroupController>/5
-        [HttpGet("{groupId}")]
+        [HttpGet("detail/{groupId}")]
         public Group GetGroupByID(Guid groupId)
         {
             return groupRepository.GetGroupByID(groupId);
         }
 
         // POST api/<GroupController>
-        [HttpPost]
+        [HttpPost("create")]
         public void AddGroup(Group group)
         {
             groupRepository.AddGroup(group);
         }
 
         // PUT api/<GroupController>/5
-        [HttpPut("{groupId}")]
+        [HttpPut("detail/{groupId}")]
         public Group UpdateGroup(Guid groupId, [FromBody] Group group)
         {
             groupRepository.UpdateGroup(groupId, group);
@@ -48,7 +48,7 @@ namespace TimetableOfClasses.API.Controllers
         }
 
         // DELETE api/<GroupController>/5
-        [HttpDelete("{groupId}")]
+        [HttpDelete("detail/{groupId}")]
         public void Delete(Guid groupId)
         {
             groupRepository.DeleteGroup(groupId);
