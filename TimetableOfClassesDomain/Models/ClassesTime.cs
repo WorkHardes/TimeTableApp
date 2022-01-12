@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TimetableOfClasses.Domain
 {
@@ -10,7 +11,6 @@ namespace TimetableOfClasses.Domain
         public DateTime EndTime { get; set; }
 
         // Navigation Properties
-        public Guid TimeTableId { get; set; }
-        public TimeTable TimeTable { get; set; }
+        public List<TimeTable> TimeTables { get; set; }
     }
 }

@@ -19,7 +19,5 @@ namespace TimetableOfClasses.Infrastructure
         public DbSet<Subject> Subjects { get; set;}
         public DbSet<AcademicPlan> AcademicPlans { get; set; }
         public DbSet<TimeTable> TimeTables { get; set; }
-
-
     }
 }

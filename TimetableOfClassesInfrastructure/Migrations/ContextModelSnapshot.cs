@@ -45,6 +45,12 @@ namespace TimetableOfClasses.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("SemesterId");
+
+                    b.HasIndex("SubjectId");
+
                     b.ToTable("AcademicPlans");
                 });
 
@@ -57,15 +63,10 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                     b.Property<int>("AudienceNum")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("TimeTableId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TimeTableId");
 
                     b.ToTable("Audiences");
                 });
@@ -85,12 +86,7 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("TimeTableId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("TimeTableId");
 
                     b.ToTable("ClassesTimes");
                 });
@@ -101,23 +97,13 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AcademicPlanId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("GroupNum")
                         .HasColumnType("int");
 
                     b.Property<int>("NumOfStudent")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("TimeTableId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("AcademicPlanId");
-
-                    b.HasIndex("TimeTableId");
 
                     b.ToTable("Groups");
                 });
@@ -137,12 +123,7 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                     b.Property<string>("SecondName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("TimeTableId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("TimeTableId");
 
                     b.ToTable("Lecturers");
                 });
@@ -153,12 +134,6 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AcademicPlanId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TimeTableId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
@@ -166,10 +141,6 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AcademicPlanId");
-
-                    b.HasIndex("TimeTableId");
 
                     b.ToTable("Semesters");
                 });
@@ -180,20 +151,10 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AcademicPlanId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TimeTableId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AcademicPlanId");
-
-                    b.HasIndex("TimeTableId");
 
                     b.ToTable("Subjects");
                 });
@@ -227,119 +188,121 @@ namespace TimetableOfClasses.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AudienceId");
+
+                    b.HasIndex("ClassesTimeId");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("LecturerId");
+
+                    b.HasIndex("SubjectId");
+
                     b.ToTable("TimeTables");
-                });
-
-            modelBuilder.Entity("TimetableOfClasses.Domain.Audience", b =>
-                {
-                    b.HasOne("TimetableOfClasses.Domain.TimeTable", "TimeTable")
-                        .WithMany("Audiences")
-                        .HasForeignKey("TimeTableId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TimeTable");
-                });
-
-            modelBuilder.Entity("TimetableOfClasses.Domain.ClassesTime", b =>
-                {
-                    b.HasOne("TimetableOfClasses.Domain.TimeTable", "TimeTable")
-                        .WithMany("ClassesTimes")
-                        .HasForeignKey("TimeTableId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TimeTable");
-                });
-
-            modelBuilder.Entity("TimetableOfClasses.Domain.Group", b =>
-                {
-                    b.HasOne("TimetableOfClasses.Domain.AcademicPlan", "AcademicPlan")
-                        .WithMany("Groups")
-                        .HasForeignKey("AcademicPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TimetableOfClasses.Domain.TimeTable", "TimeTable")
-                        .WithMany("Groups")
-                        .HasForeignKey("TimeTableId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AcademicPlan");
-
-                    b.Navigation("TimeTable");
-                });
-
-            modelBuilder.Entity("TimetableOfClasses.Domain.Lecturer", b =>
-                {
-                    b.HasOne("TimetableOfClasses.Domain.TimeTable", "TimeTable")
-                        .WithMany("Lecturers")
-                        .HasForeignKey("TimeTableId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TimeTable");
-                });
-
-            modelBuilder.Entity("TimetableOfClasses.Domain.Semester", b =>
-                {
-                    b.HasOne("TimetableOfClasses.Domain.AcademicPlan", "AcademicPlan")
-                        .WithMany("Semesters")
-                        .HasForeignKey("AcademicPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TimetableOfClasses.Domain.TimeTable", "TimeTable")
-                        .WithMany()
-                        .HasForeignKey("TimeTableId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AcademicPlan");
-
-                    b.Navigation("TimeTable");
-                });
-
-            modelBuilder.Entity("TimetableOfClasses.Domain.Subject", b =>
-                {
-                    b.HasOne("TimetableOfClasses.Domain.AcademicPlan", "AcademicPlan")
-                        .WithMany("Subjects")
-                        .HasForeignKey("AcademicPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TimetableOfClasses.Domain.TimeTable", "TimeTable")
-                        .WithMany("Subjects")
-                        .HasForeignKey("TimeTableId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AcademicPlan");
-
-                    b.Navigation("TimeTable");
                 });
 
             modelBuilder.Entity("TimetableOfClasses.Domain.AcademicPlan", b =>
                 {
-                    b.Navigation("Groups");
+                    b.HasOne("TimetableOfClasses.Domain.Group", "Group")
+                        .WithMany("AcademicPlans")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Semesters");
+                    b.HasOne("TimetableOfClasses.Domain.Semester", "Semester")
+                        .WithMany("AcademicPlans")
+                        .HasForeignKey("SemesterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Subjects");
+                    b.HasOne("TimetableOfClasses.Domain.Subject", "Subject")
+                        .WithMany("AcademicPlans")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("Semester");
+
+                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("TimetableOfClasses.Domain.TimeTable", b =>
                 {
-                    b.Navigation("Audiences");
+                    b.HasOne("TimetableOfClasses.Domain.Audience", "Audience")
+                        .WithMany("TimeTables")
+                        .HasForeignKey("AudienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("ClassesTimes");
+                    b.HasOne("TimetableOfClasses.Domain.ClassesTime", "ClassesTime")
+                        .WithMany("TimeTables")
+                        .HasForeignKey("ClassesTimeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Groups");
+                    b.HasOne("TimetableOfClasses.Domain.Group", "Group")
+                        .WithMany("TimeTables")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Lecturers");
+                    b.HasOne("TimetableOfClasses.Domain.Lecturer", "Lecturer")
+                        .WithMany("TimeTables")
+                        .HasForeignKey("LecturerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Subjects");
+                    b.HasOne("TimetableOfClasses.Domain.Subject", "Subject")
+                        .WithMany("TimeTables")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Audience");
+
+                    b.Navigation("ClassesTime");
+
+                    b.Navigation("Group");
+
+                    b.Navigation("Lecturer");
+
+                    b.Navigation("Subject");
+                });
+
+            modelBuilder.Entity("TimetableOfClasses.Domain.Audience", b =>
+                {
+                    b.Navigation("TimeTables");
+                });
+
+            modelBuilder.Entity("TimetableOfClasses.Domain.ClassesTime", b =>
+                {
+                    b.Navigation("TimeTables");
+                });
+
+            modelBuilder.Entity("TimetableOfClasses.Domain.Group", b =>
+                {
+                    b.Navigation("AcademicPlans");
+
+                    b.Navigation("TimeTables");
+                });
+
+            modelBuilder.Entity("TimetableOfClasses.Domain.Lecturer", b =>
+                {
+                    b.Navigation("TimeTables");
+                });
+
+            modelBuilder.Entity("TimetableOfClasses.Domain.Semester", b =>
+                {
+                    b.Navigation("AcademicPlans");
+                });
+
+            modelBuilder.Entity("TimetableOfClasses.Domain.Subject", b =>
+                {
+                    b.Navigation("AcademicPlans");
+
+                    b.Navigation("TimeTables");
                 });
 #pragma warning restore 612, 618
         }
