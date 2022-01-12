@@ -20,6 +20,43 @@ namespace TimetableOfClasses.Infrastructure
         public DbSet<AcademicPlan> AcademicPlans { get; set; }
         public DbSet<TimeTable> TimeTables { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Lecturer>()
+                .HasOne(c => c.ClassRoom)
+                .WithMany(cr => cr.Classes)
+                .HasForeignKey(c => c.ClassRoomId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<ClassesTime>()
+                .HasOne(c => c.ClassRoom)
+                .WithMany(cr => cr.Classes)
+                .HasForeignKey(c => c.ClassRoomId)
+                .OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<Audience>()
+                .HasOne(c => c.ClassRoom)
+                .WithMany(cr => cr.Classes)
+                .HasForeignKey(c => c.ClassRoomId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Semester>()
+                .HasOne(c => c.ClassRoom)
+                .WithMany(cr => cr.Classes)
+                .HasForeignKey(c => c.ClassRoomId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Group>()
+                .HasOne(c => c.ClassRoom)
+                .WithMany(cr => cr.Classes)
+                .HasForeignKey(c => c.ClassRoomId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Subject>()
+                .HasOne(c => c.ClassRoom)
+                .WithMany(cr => cr.Classes)
+                .HasForeignKey(c => c.ClassRoomId)
+                .OnDelete(DeleteBehavior.SetNull);
+        }
 
     }
 }

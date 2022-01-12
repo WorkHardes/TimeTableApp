@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TimetableOfClasses.Domain
 {
@@ -9,7 +10,6 @@ namespace TimetableOfClasses.Domain
         public string Type { get; set; }
 
         // Navigation Properties
-        public Guid TimeTableId { get; set; }
-        public TimeTable TimeTable { get; set; }
+        public List<TimeTable> TimeTables { get; set; }
     }
 }
