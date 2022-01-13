@@ -10,7 +10,6 @@ namespace TimetableOfClasses.Domain
         public DateTime BeginTime { get; set; }
         public DateTime EndTime { get; set; }
 
-        // Navigation Properties
         public List<TimeTable> TimeTables { get; set; }
     }
 }

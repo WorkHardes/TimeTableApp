@@ -10,7 +10,7 @@ using TimetableOfClasses.Infrastructure;
 namespace TimetableOfClasses.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220112144720_InitialMigration")]
+    [Migration("20220113150242_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,41 +20,6 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("TimetableOfClasses.Domain.AcademicPlan", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("NumOfLabs")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumOfLectures")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumOfPractices")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("SemesterId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SubjectId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex("SemesterId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("AcademicPlans");
-                });
 
             modelBuilder.Entity("TimetableOfClasses.Domain.Audience", b =>
                 {
@@ -130,23 +95,6 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                     b.ToTable("Lecturers");
                 });
 
-            modelBuilder.Entity("TimetableOfClasses.Domain.Semester", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Semesters");
-                });
-
             modelBuilder.Entity("TimetableOfClasses.Domain.Subject", b =>
                 {
                     b.Property<Guid>("Id")
@@ -201,33 +149,6 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                     b.HasIndex("SubjectId");
 
                     b.ToTable("TimeTables");
-                });
-
-            modelBuilder.Entity("TimetableOfClasses.Domain.AcademicPlan", b =>
-                {
-                    b.HasOne("TimetableOfClasses.Domain.Group", "Group")
-                        .WithMany("AcademicPlans")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TimetableOfClasses.Domain.Semester", "Semester")
-                        .WithMany("AcademicPlans")
-                        .HasForeignKey("SemesterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TimetableOfClasses.Domain.Subject", "Subject")
-                        .WithMany("AcademicPlans")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-
-                    b.Navigation("Semester");
-
-                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("TimetableOfClasses.Domain.TimeTable", b =>
@@ -285,8 +206,6 @@ namespace TimetableOfClasses.Infrastructure.Migrations
 
             modelBuilder.Entity("TimetableOfClasses.Domain.Group", b =>
                 {
-                    b.Navigation("AcademicPlans");
-
                     b.Navigation("TimeTables");
                 });
 
@@ -295,15 +214,8 @@ namespace TimetableOfClasses.Infrastructure.Migrations
                     b.Navigation("TimeTables");
                 });
 
-            modelBuilder.Entity("TimetableOfClasses.Domain.Semester", b =>
-                {
-                    b.Navigation("AcademicPlans");
-                });
-
             modelBuilder.Entity("TimetableOfClasses.Domain.Subject", b =>
                 {
-                    b.Navigation("AcademicPlans");
-
                     b.Navigation("TimeTables");
                 });
 #pragma warning restore 612, 618

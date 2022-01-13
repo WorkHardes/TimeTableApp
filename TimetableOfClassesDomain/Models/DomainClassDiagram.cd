@@ -1,51 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="TimetableOfClasses.Domain.AcademicPlan">
-    <Position X="4" Y="6.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAEAEEAAAAAAAIIAAAAAAAAAAAIAAAAIAAQAAQAA=</HashCode>
-      <FileName>Models\AcademicPlan.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Group" />
-      <Property Name="Semester" />
-      <Property Name="Subject" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="TimetableOfClasses.Domain.Semester">
-    <Position X="1.5" Y="7.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAABAAAAAAAAAAAAAAAAAgAAAAAAQAAAAAAAAA=</HashCode>
-      <FileName>Models\Semester.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="AcademicPlans" />
-    </ShowAsCollectionAssociation>
-  </Class>
   <Class Name="TimetableOfClasses.Domain.Group">
-    <Position X="0.5" Y="5.25" Width="1.5" />
+    <Position X="1.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABCCAAAAAAAAAAAAAAAAAAAAAAgAAEAAAAAAAAAAAAA=</HashCode>
+      <HashCode>ABCCAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Group.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="AcademicPlans" />
       <Property Name="TimeTables" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="TimetableOfClasses.Domain.Subject">
-    <Position X="7.5" Y="6.5" Width="1.5" />
+    <Position X="7.75" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACCAAAAAAAAAEAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AACCAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Subject.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="TimeTables" />
-      <Property Name="AcademicPlans" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="TimetableOfClasses.Domain.Lecturer">
-    <Position X="4" Y="0.75" Width="1.5" />
+    <Position X="2" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACCAGgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Lecturer.cs</FileName>
@@ -55,7 +31,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="TimetableOfClasses.Domain.Audience">
-    <Position X="5.75" Y="1" Width="1.5" />
+    <Position X="5.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACCAAAAAAAAABAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Models\Audience.cs</FileName>
@@ -82,10 +58,10 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Audience" />
-      <Property Name="ClassesTime" />
-      <Property Name="Group" />
       <Property Name="Lecturer" />
+      <Property Name="ClassesTime" />
       <Property Name="Subject" />
+      <Property Name="Group" />
     </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="8.86" />

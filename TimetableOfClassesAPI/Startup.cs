@@ -31,10 +31,8 @@ namespace TimetableOfClasses.API
             services.AddScoped<ILecturerRepository, LecturerRepository>();
             services.AddScoped <IClassesTimeRepository, ClassesTimeRepository> ();
             services.AddScoped<IAudienceRepository, AudienceRepository>();
-            services.AddScoped<ISemesterRepository, SemesterRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<ISubjectRepository, SubjectRepository>();
-            services.AddScoped<IAcademicPlanRepository, AcademicPlanRepository>();
             services.AddScoped <ITimeTableRepository, TimeTableRepository> ();
             
             services.AddSwaggerGen(c =>

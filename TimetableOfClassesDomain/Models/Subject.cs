@@ -8,8 +8,6 @@ namespace TimetableOfClasses.Domain
         public Guid Id { get; set; }
         public string Title { get; set; }
 
-        // Navigation Properties
         public List<TimeTable> TimeTables { get; set; }
-        public List<AcademicPlan> AcademicPlans { get; set; }
     }
 }

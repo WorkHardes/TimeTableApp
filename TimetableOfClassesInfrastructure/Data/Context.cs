@@ -14,10 +14,8 @@ namespace TimetableOfClasses.Infrastructure
         public DbSet<Lecturer> Lecturers { get; set;}
         public DbSet<ClassesTime> ClassesTimes { get; set; }
         public DbSet<Audience> Audiences { get; set; }
-        public DbSet<Semester> Semesters { get; set; }
         public DbSet<Group> Groups { get; set;}
         public DbSet<Subject> Subjects { get; set;}
-        public DbSet<AcademicPlan> AcademicPlans { get; set; }
         public DbSet<TimeTable> TimeTables { get; set; }
     }
 }
