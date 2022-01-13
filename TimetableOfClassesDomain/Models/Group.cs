@@ -9,9 +9,7 @@ namespace TimetableOfClasses.Domain
         public int GroupNum { get; set; }
         public int NumOfStudent { get; set; }
 
-        // Navigation Properties
         public List<TimeTable> TimeTables { get; set; }
-        public List<AcademicPlan> AcademicPlans { get; set; }
 
     }
 }

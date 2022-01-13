@@ -9,7 +9,6 @@ namespace TimetableOfClasses.Domain
         public int AudienceNum { get; set; }
         public string Type { get; set; }
 
-        // Navigation Properties
         public List<TimeTable> TimeTables { get; set; }
     }
 }
