@@ -5814,32 +5814,34 @@
     ]
   },
   "packageFolders": {
-    "/Users/yaroslav/.nuget/packages/": {}
+    "C:\\Users\\LENOVO\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/yaroslav/Desktop/LabaDotNet/TimeTableApp/TimetableOfClassesInfrastructure/TimetableOfClasses.Infrastructure.csproj",
+      "projectUniqueName": "C:\\CSharp\\TimetableOfClasses\\TimetableOfClassesInfrastructure\\TimetableOfClasses.Infrastructure.csproj",
       "projectName": "TimetableOfClasses.Infrastructure",
-      "projectPath": "/Users/yaroslav/Desktop/LabaDotNet/TimeTableApp/TimetableOfClassesInfrastructure/TimetableOfClasses.Infrastructure.csproj",
-      "packagesPath": "/Users/yaroslav/.nuget/packages/",
-      "outputPath": "/Users/yaroslav/Desktop/LabaDotNet/TimeTableApp/TimetableOfClassesInfrastructure/obj/",
+      "projectPath": "C:\\CSharp\\TimetableOfClasses\\TimetableOfClassesInfrastructure\\TimetableOfClasses.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
+      "outputPath": "C:\\CSharp\\TimetableOfClasses\\TimetableOfClassesInfrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/yaroslav/.config/NuGet/NuGet.Config"
+        "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "/Users/yaroslav/Desktop/LabaDotNet/TimeTableApp/TimetableOfClassesDomain/TimetableOfClasses.Domain.csproj": {
-              "projectPath": "/Users/yaroslav/Desktop/LabaDotNet/TimeTableApp/TimetableOfClassesDomain/TimetableOfClasses.Domain.csproj"
+            "C:\\CSharp\\TimetableOfClasses\\TimetableOfClassesDomain\\TimetableOfClasses.Domain.csproj": {
+              "projectPath": "C:\\CSharp\\TimetableOfClasses\\TimetableOfClassesDomain\\TimetableOfClasses.Domain.csproj"
             }
           }
         }
@@ -5890,7 +5892,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.404/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
