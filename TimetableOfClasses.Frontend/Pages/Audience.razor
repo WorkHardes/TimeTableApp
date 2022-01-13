@@ -1,0 +1,120 @@
+﻿@inject HttpClient Http
+
+
+@page "/audience"
+
+<h3>Список аудиторий</h3>
+@if (data == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Номер аудитории</th>
+                <th>Количество мест для посадки</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in data)
+            {
+            <tr>
+                @if (isEdit && activeId == item.id)
+                {
+                    <td><input class="form-control" type="number" @bind-value="AudienceNumField" /></td>
+                    <td><input class="form-control" type="text" @bind-value="AudienceTypeField" /></td>
+                    <td><button type="button" class="btn btn-success" @onclick="() => EditItem(item.id)">Сохранить</button></td>
+                    <td><button type="button" class="btn btn-danger" @onclick="ResetState">Сбросить</button></td>
+                }
+                else
+                {
+                    <td>@item.audienceNum</td>
+                    <td>@item.type</td>
+                    <td><button type="button" class="btn btn-secondary" @onclick="() => ChangeMode(item.id)">Редактировать</button></td>
+                    <td><button type="button" class="btn btn-danger" @onclick="() => DeleteItem(item.id)">Удалить</button></td>
+                }
+            </tr>
+            }
+        <tr>
+            <td><input class="form-control" type="number" @bind-value="AudienceNumField"/></td>
+            <td><input class="form-control" type="text" @bind-value="AudienceTypeField"/></td>
+            <td><button type="button" class="btn btn-success" @onclick="AddItem">Добавить</button></td>
+        </tr>
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<AudienceType> data;
+
+    public int AudienceNumField { get; set; }
+    public string AudienceTypeField { get; set; }
+    private bool isEdit = false;
+    private Guid activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
+
+    public class StateInterface
+    {
+        public Boolean editActive;
+        public string activeId;
+    }
+
+    public class AudienceType
+    {
+
+        public Guid id { get; set; }
+
+        public int audienceNum { get; set; }
+
+        public string type { get; set; }
+
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        data = await Http.GetFromJsonAsync<List<AudienceType>>("Audiences/all");
+    }
+
+
+    private async Task DeleteItem(Guid id)
+    {
+        await Http.DeleteAsync("Audiences/detail/{id}");
+    }
+
+    private async Task EditItem(Guid id)
+    {
+        var client = new HttpClient();
+        var postBody = new { audienceNum = AudienceNumField, type = AudienceTypeField };
+        using var response = await client.PutAsJsonAsync("https://localhost:5001/apy/v1/Audiences/detail/{id}", postBody);
+        ResetState();
+
+    }
+
+    private async Task AddItem()
+    {
+
+        var client = new HttpClient();
+        var postBody = new { audienceNum = AudienceNumField, type = AudienceTypeField };
+        using var response = await client.PostAsJsonAsync("https://localhost:5001/apy/v1/Audiences/create", postBody);
+    }
+
+
+    private async Task ChangeMode(Guid id)
+    {
+        isEdit = true;
+        activeId = id;
+        var field = data.Find(el => el.id == id);
+        AudienceNumField = field.audienceNum;
+        AudienceTypeField = field.type;
+    }
+
+    protected void ResetState()
+    {
+        isEdit = false;
+        activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
+    }
+}
