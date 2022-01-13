@@ -21,13 +21,12 @@ else
         </tr>
     </thead>
     <tbody>
-        @for (int index = 0; index < data.Length; index++)
+        @foreach (var item in data)
         {
             <tr>
-                <td>@index</td>
-                <td>@data[index].name</td>
-                <td>@data[index].surname</td>
-                <td>@data[index].patronymic</td>
+                <td>@item.name</td>
+                <td>@item.surname</td>
+                <td>@item.patronymic</td>
             </tr>
         }
     </tbody>
@@ -36,11 +35,12 @@ else
 
 
 @code {
-    private Teacher[] data;
+    private List<Teacher> data;
+
 
     protected override async Task OnInitializedAsync()
     {
-        data = await Http.GetFromJsonAsync<Teacher[]>("sample-data/teachers.json");
+        data = await Http.GetFromJsonAsync<List<Teacher>>("Lectures/all");
     }
 
     public class Teacher

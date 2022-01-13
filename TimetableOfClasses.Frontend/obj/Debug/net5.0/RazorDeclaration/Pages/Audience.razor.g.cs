@@ -91,27 +91,76 @@ using TimetableOfClasses.Frontend.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 35 "/Users/yaroslav/Desktop/LabaDotNet/TimeTableApp/TimetableOfClasses.Frontend/Pages/Audience.razor"
-           
-        private AudienceType[] data;
+#line 51 "/Users/yaroslav/Desktop/LabaDotNet/TimeTableApp/TimetableOfClasses.Frontend/Pages/Audience.razor"
+       
+    private List<AudienceType> data;
+
+    public int AudienceNumField { get; set; }
+    public string AudienceTypeField { get; set; }
+    private bool isEdit = false;
+    private Guid activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
+
+    public class StateInterface
+    {
+        public Boolean editActive;
+        public string activeId;
+    }
+
+    public class AudienceType
+    {
+
+        public Guid id { get; set; }
+
+        public int audienceNum { get; set; }
+
+        public string type { get; set; }
+
+    }
 
 
-        protected override async Task OnInitializedAsync()
-        {
-            data = await Http.GetFromJsonAsync<AudienceType[]>("Audiences/all");
-        }
+    protected override async Task OnInitializedAsync()
+    {
+        data = await Http.GetFromJsonAsync<List<AudienceType>>("Audiences/all");
+    }
 
-        public class AudienceType
-        {
 
-            public string id { get; set; }
+    private async Task DeleteItem(Guid id)
+    {
+        await Http.DeleteAsync("Audiences/detail/{id}");
+    }
 
-            public int audienceNum { get; set; }
+    private async Task EditItem(Guid id)
+    {
+        var client = new HttpClient();
+        var postBody = new { audienceNum = AudienceNumField, type = AudienceTypeField };
+        using var response = await client.PutAsJsonAsync("https://localhost:5001/apy/v1/Audiences/detail/{id}", postBody);
+        ResetState();
 
-            public int maxNumOfSeats { get; set; }
+    }
 
-        }
-    
+    private async Task AddItem()
+    {
+
+        var client = new HttpClient();
+        var postBody = new { audienceNum = AudienceNumField, type = AudienceTypeField };
+        using var response = await client.PostAsJsonAsync("https://localhost:5001/apy/v1/Audiences/create", postBody);
+    }
+
+
+    private async Task ChangeMode(Guid id)
+    {
+        isEdit = true;
+        activeId = id;
+        var field = data.Find(el => el.id == id);
+        AudienceNumField = field.audienceNum;
+        AudienceTypeField = field.type;
+    }
+
+    protected void ResetState()
+    {
+        isEdit = false;
+        activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
+    }
 
 #line default
 #line hidden

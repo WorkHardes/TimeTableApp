@@ -90,20 +90,6 @@ using TimetableOfClasses.Frontend.Shared;
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 20 "/Users/yaroslav/Desktop/LabaDotNet/TimeTableApp/TimetableOfClasses.Frontend/Pages/Index.razor"
-       
-    private string currentCategory = "teachers";
-
-
-    private void toggleSchedule(string title)
-    {
-        currentCategory = title;
-    }
-
-#line default
-#line hidden
-#nullable disable
     }
 }
 #pragma warning restore 1591

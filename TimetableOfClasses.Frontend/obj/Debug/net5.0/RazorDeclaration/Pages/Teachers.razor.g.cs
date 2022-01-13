@@ -91,13 +91,14 @@ using TimetableOfClasses.Frontend.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 38 "/Users/yaroslav/Desktop/LabaDotNet/TimeTableApp/TimetableOfClasses.Frontend/Pages/Teachers.razor"
+#line 37 "/Users/yaroslav/Desktop/LabaDotNet/TimeTableApp/TimetableOfClasses.Frontend/Pages/Teachers.razor"
        
-    private Teacher[] data;
+    private List<Teacher> data;
+
 
     protected override async Task OnInitializedAsync()
     {
-        data = await Http.GetFromJsonAsync<Teacher[]>("sample-data/teachers.json");
+        data = await Http.GetFromJsonAsync<List<Teacher>>("Lectures/all");
     }
 
     public class Teacher

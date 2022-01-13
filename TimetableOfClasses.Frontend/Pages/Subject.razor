@@ -21,12 +21,11 @@ else
         </tr>
     </thead>
     <tbody>
-        @for (int index = 0; index < data.Length; index++)
+        @foreach (var item in data)
         {
             <tr>
-                <td>@index</td>
-                <td>@data[index].title</td>
-                <td>@data[index].type</td>
+                <td>@item.title</td>
+                <td>@item.type</td>
             </tr>
         }
     </tbody>
