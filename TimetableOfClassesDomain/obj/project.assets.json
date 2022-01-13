@@ -8,26 +8,24 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\LENOVO\\.nuget\\packages\\": {}
+    "/Users/yaroslav/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\CSharp\\TimetableOfClasses\\TimetableOfClassesDomain\\TimetableOfClasses.Domain.csproj",
+      "projectUniqueName": "/Users/yaroslav/Desktop/LabaDotNet/TimeTableApp/TimetableOfClassesDomain/TimetableOfClasses.Domain.csproj",
       "projectName": "TimetableOfClasses.Domain",
-      "projectPath": "C:\\CSharp\\TimetableOfClasses\\TimetableOfClassesDomain\\TimetableOfClasses.Domain.csproj",
-      "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-      "outputPath": "C:\\CSharp\\TimetableOfClasses\\TimetableOfClassesDomain\\obj\\",
+      "projectPath": "/Users/yaroslav/Desktop/LabaDotNet/TimeTableApp/TimetableOfClassesDomain/TimetableOfClasses.Domain.csproj",
+      "packagesPath": "/Users/yaroslav/.nuget/packages/",
+      "outputPath": "/Users/yaroslav/Desktop/LabaDotNet/TimeTableApp/TimetableOfClassesDomain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/yaroslav/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -60,7 +58,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.404/RuntimeIdentifierGraph.json"
       }
     }
   }

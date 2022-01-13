@@ -1,0 +1,28 @@
+﻿@page "/"
+<div class="container">
+    <h1>Расписание</h1>
+
+    Пожалуйста выберите одну из предложенных категорий: преподаватель, группа, аудитория.
+
+    <div class="buttons">
+        <button type="button" class="btn btn-primary" @onclick="@(e => toggleSchedule("teachers"))">Преподаватель</button>
+        <button type="button" class="btn btn-secondary" @onclick="@(e => toggleSchedule("groups"))">Группа</button>
+        <button type="button" class="btn btn-success" @onclick="@(e => toggleSchedule("classes"))">Аудитория</button>
+    </div>
+
+    <p>
+        @currentCategory
+    </p>
+</div>
+
+
+
+@code {
+    private string currentCategory = "teachers";
+
+
+    private void toggleSchedule(string title)
+    {
+        currentCategory = title;
+    }
+}

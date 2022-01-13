@@ -1,0 +1,17 @@
+﻿[
+  {
+    "id": "1",
+    "title": "Math",
+    "type": "Practise"
+  },
+  {
+    "id": "1",
+    "title": "English",
+    "type": "Practise"
+  },
+  {
+    "id": "1",
+    "title": "Phisics",
+    "type": "Lecture"
+  }
+]

@@ -1,0 +1,56 @@
+﻿@inject HttpClient Http
+
+
+@page "/teachers"
+
+<h3>Список преподавателей</h3>
+
+@if (data == null) {
+    <p>Loading...</p>
+}
+else
+{
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int index = 0; index < data.Length; index++)
+        {
+            <tr>
+                <td>@index</td>
+                <td>@data[index].name</td>
+                <td>@data[index].surname</td>
+                <td>@data[index].patronymic</td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+
+
+@code {
+    private Teacher[] data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        data = await Http.GetFromJsonAsync<Teacher[]>("sample-data/teachers.json");
+    }
+
+    public class Teacher
+    {
+        public string id { get; set; }
+
+        public string name { get; set; }
+
+        public string surname { get; set; }
+
+        public string patronymic { get; set; }
+    }
+}

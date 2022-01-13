@@ -1,0 +1,20 @@
+﻿[
+  {
+    "id": "1",
+    "coupleNum": 2,
+    "beginTime": "10:00",
+    "endTime": "11:35"
+  },
+  {
+    "id": "2",
+    "coupleNum": 3,
+    "beginTime": "11:45",
+    "endTime": "13:00"
+  },
+  {
+    "id": "3",
+    "coupleNum": 4,
+    "beginTime": "13:30",
+    "endTime": "15:00"
+  }
+]

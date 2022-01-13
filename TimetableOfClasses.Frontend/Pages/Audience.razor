@@ -1,0 +1,54 @@
+﻿@inject HttpClient Http
+
+
+@page "/audience"
+
+<h3>Список аудиторий</h3>
+@if (data == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Номер аудитории</th>
+                <th>Количество мест для посадки</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int index = 0; index < data.Length; index++)
+            {
+                <tr>
+                    <td>@index</td>
+                    <td>@data[index].audienceNum</td>
+                    <td>@data[index].maxNumOfSeats</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+    @code {
+        private AudienceType[] data;
+
+
+        protected override async Task OnInitializedAsync()
+        {
+            data = await Http.GetFromJsonAsync<AudienceType[]>("Audiences/all");
+        }
+
+        public class AudienceType
+        {
+
+            public string id { get; set; }
+
+            public int audienceNum { get; set; }
+
+            public int maxNumOfSeats { get; set; }
+
+        }
+    }

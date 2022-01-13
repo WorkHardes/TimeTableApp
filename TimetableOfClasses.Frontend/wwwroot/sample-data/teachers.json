@@ -1,0 +1,26 @@
+﻿[
+  {
+    "id": "1",
+    "name": "Yaroslav",
+    "surname": "Nikolaev",
+    "patronymic": "Sergeevich"
+  },
+  {
+    "id": "2",
+    "name": "Arkadi",
+    "surname": "Orehov",
+    "patronymic": "Andreevich"
+  },
+  {
+    "id": "3",
+    "name": "Marsel",
+    "surname": "Abdullin",
+    "patronymic": "Rinatovich"
+  },
+  {
+    "id": "4",
+    "name": "Alexandra",
+    "surname": "Andreevna",
+    "patronymic": "Yakovleva"
+  }
+]

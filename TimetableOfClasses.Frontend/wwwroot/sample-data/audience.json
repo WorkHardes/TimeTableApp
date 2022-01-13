@@ -1,0 +1,17 @@
+﻿[
+  {
+    "id": "1",
+    "audienceNum": 242,
+    "maxNumOfSeats": 50
+  },
+  {
+    "id": "2",
+    "audienceNum": 321,
+    "maxNumOfSeats": 32
+  },
+  {
+    "id": "3",
+    "audienceNum": 231,
+    "maxNumOfSeats": 40
+  }
+]

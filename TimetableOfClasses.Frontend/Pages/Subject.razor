@@ -1,0 +1,56 @@
+﻿@inject HttpClient Http
+
+
+@page "/subject"
+
+<h3>Список предметов</h3>
+
+@if (data == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Название предмета</th>
+            <th>Вид занятия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int index = 0; index < data.Length; index++)
+        {
+            <tr>
+                <td>@index</td>
+                <td>@data[index].title</td>
+                <td>@data[index].type</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+}
+
+
+@code {
+    private SubjectType[] data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        data = await Http.GetFromJsonAsync<SubjectType[]>("sample-data/subjects.json");
+    }
+
+    public class SubjectType
+    {
+
+        public string id { get; set; }
+
+        public string title { get; set; }
+
+        public string type { get; set; }
+
+    }
+}

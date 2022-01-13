@@ -24,6 +24,14 @@ namespace TimetableOfClasses.API
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddCors(policy =>
+            {
+                policy.AddPolicy("CorsPolicy", opt => opt
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+            });
+
             services.AddControllers();
 
             services.AddDbContext<TimetableOfClasses.Infrastructure.Context>(options => options.UseSqlServer(Configuration.GetConnectionString("TimetableOfClasses")));
@@ -56,6 +64,8 @@ namespace TimetableOfClasses.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 

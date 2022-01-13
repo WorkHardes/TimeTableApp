@@ -1,0 +1,82 @@
+﻿@inject HttpClient Http
+
+
+@page "/schedule"
+
+<h3>Расписание занятий</h3>
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Номер аудитории</th>
+            <th>Количество мест для посадки</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int index = 0; index < data.Length; index++)
+        {
+            <tr>
+                <td>@index++</td>
+                
+            </tr>
+        }
+    </tbody>
+</table>*@
+
+
+@code {
+    @*private TimeTableType[] data;*@
+    @*protected override async Task OnInitializedAsync()
+    {
+        data = await Http.GetFromJsonAsync<TimeTableType[]>("https://localhost:44321/api/v1/timeTable/all");
+    }
+
+    public class TimeTableType
+    {
+
+        public class Teacher
+        {
+            public string name { get; set; }
+
+            public string surname { get; set; }
+
+            public string patronymic { get; set; }
+        }
+
+        public class GroupType
+        {
+            public string title { get; set; }
+
+        }
+
+        public class AudienceType
+        {
+            public int audienceNum { get; set; }
+
+        }
+
+        public class SubjectType
+        {
+            public string title { get; set; }
+
+            public string type { get; set; }
+
+        }
+
+        public class CoupleType
+        {
+            public int coupleNum { get; set; }
+
+            public int beginTime { get; set; }
+
+            public int endTime { get; set; }
+
+        }
+
+        public string date { get; set; }
+
+        public string dayOfTheWeek { get; set; }
+
+    }*@
+}

@@ -1,0 +1,11 @@
+﻿body {
+
+}
+
+.buttons {
+    padding: 10px 0;
+    width: 50%;
+    max-width: 400px;
+    display: flex;
+    justify-content: space-between;
+}

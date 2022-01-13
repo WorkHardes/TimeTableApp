@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "d523RmrXeVHNqmj+XwL84lfz6fR9f/EkzjYx6E+3O1HkQegEGa859OTjN3OnRj1Lwv1R8A5juqzahhjh5+C/CQ==",
+  "dgSpecHash": "R8EZbwy0cBNsWMb4iC/K+qlIm8M9xG7xXqejn454XU8/hu4vpj3krwedO4siErk19is6Z2qRfbmZkF8M7nTEgg==",
   "success": true,
-  "projectFilePath": "C:\\CSharp\\TimetableOfClasses\\TimetableOfClassesDomain\\TimetableOfClasses.Domain.csproj",
+  "projectFilePath": "/Users/yaroslav/Desktop/LabaDotNet/TimeTableApp/TimetableOfClassesDomain/TimetableOfClasses.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
