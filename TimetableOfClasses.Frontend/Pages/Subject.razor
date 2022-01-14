@@ -4,52 +4,102 @@
 @page "/subject"
 
 <h3>Список предметов</h3>
-
 @if (data == null)
 {
     <p>Loading...</p>
 }
 else
 {
-
-<table class="table">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Название предмета</th>
-            <th>Вид занятия</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in data)
-        {
+    <table class="table">
+        <thead>
             <tr>
-                <td>@item.title</td>
-                <td>@item.type</td>
+                <th>Название предмета</th>
+                <th></th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
-
+        </thead>
+        <tbody>
+            @foreach (var item in data)
+            {
+            <tr>
+                @if (isEdit && activeId == item.id)
+                {
+                    <td><input class="form-control" type="text" @bind-value="SubjectTitleField" /></td>
+                    <td><button type="button" class="btn btn-success" @onclick="() => EditItem(item.id)">Сохранить</button></td>
+                    <td><button type="button" class="btn btn-danger" @onclick="ResetState">Сбросить</button></td>
+                }
+                else
+                {
+                    <td>@item.title</td>
+                    <td><button type="button" class="btn btn-secondary" @onclick="() => ChangeMode(item.id)">Редактировать</button></td>
+                    <td><button type="button" class="btn btn-danger" @onclick="() => DeleteItem(item.id)">Удалить</button></td>
+                }
+            </tr>
+            }
+        <tr>
+            <td><input class="form-control" type="text" @bind-value="SubjectTitleField"/></td>
+            <td><button type="button" class="btn btn-success" @onclick="AddItem">Добавить</button></td>
+        </tr>
+        </tbody>
+    </table>
 }
 
 
 @code {
-    private SubjectType[] data;
+    private List<SubjectType> data;
 
-    protected override async Task OnInitializedAsync()
+    public string SubjectTitleField { get; set; }
+    private bool isEdit = false;
+    private Guid activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
+
+    public class StateInterface
     {
-        data = await Http.GetFromJsonAsync<SubjectType[]>("sample-data/subjects.json");
+        public Boolean editActive;
+        public string activeId;
     }
 
     public class SubjectType
     {
-
-        public string id { get; set; }
-
+        public Guid id { get; set; }
         public string title { get; set; }
+    }
 
-        public string type { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        data = await Http.GetFromJsonAsync<List<SubjectType>>("Subjects/all");
+    }
 
+    private async Task DeleteItem(Guid id)
+    {
+        await Http.DeleteAsync("https://localhost:44321/api/v1/Subjects/detail/{id}");
+    }
+
+    private async Task EditItem(Guid id)
+    {
+        var client = new HttpClient();
+        var postBody = new { subjectTitle = SubjectTitleField };
+        using var response = await client.PutAsJsonAsync("https://localhost:44321/api/v1/Subjects/detail/{id}", postBody);
+        ResetState();
+    }
+
+    private async Task AddItem()
+    {
+        var client = new HttpClient();
+        var postBody = new { subjectTitle = SubjectTitleField };
+        using var response = await client.PostAsJsonAsync("https://localhost:44321/api/v1/Subjects/create", postBody);
+    }
+
+    private void ChangeMode(Guid id)
+    {
+        isEdit = true;
+        activeId = id;
+        var field = data.Find(el => el.id == id);
+        SubjectTitleField = field.title;
+    }
+
+    protected void ResetState()
+    {
+        isEdit = false;
+        activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
     }
 }

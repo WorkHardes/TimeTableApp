@@ -91,25 +91,69 @@ using TimetableOfClasses.Frontend.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 37 "C:\CSharp\TimetableOfClasses\TimetableOfClasses.Frontend\Pages\Lecturer.razor"
+#line 55 "C:\CSharp\TimetableOfClasses\TimetableOfClasses.Frontend\Pages\Lecturer.razor"
        
-    private List<Lecturer> data;
+    private List<LecturerType> data;
 
+    public string LecturerFirstNameField { get; set; }
+    public string LecturerSecondNameField { get; set; }
+    public string LecturerPatronymicField { get; set; }
+    private bool isEdit = false;
+    private Guid activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
+
+    public class StateInterface
+    {
+        public Boolean editActive;
+        public string activeId;
+    }
+
+    public class LecturerType
+    {
+        public Guid id { get; set; }
+        public string firstName { get; set; }
+        public string secondName { get; set; }
+        public string patronymic { get; set; }
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        data = await Http.GetFromJsonAsync<List<Lecturer>>("Lecturers/all");
+        data = await Http.GetFromJsonAsync<List<LecturerType>>("Lecturers/all");
     }
 
-    public class Lecturer
+    private async Task DeleteItem(Guid id)
     {
-        public string id { get; set; }
+        await Http.DeleteAsync("https://localhost:44321/api/v1/Lecturers/detail/{id}");
+    }
 
-        public string name { get; set; }
+    private async Task EditItem(Guid id)
+    {
+        var client = new HttpClient();
+        var postBody = new { lecturerFirstame = LecturerFirstNameField, type = LecturerSecondNameField, lecturerPatronymic = LecturerPatronymicField};
+        using var response = await client.PutAsJsonAsync("https://localhost:44321/api/v1/Lecturers/detail/{id}", postBody);
+        ResetState();
+    }
 
-        public string surname { get; set; }
+    private async Task AddItem()
+    {
+        var client = new HttpClient();
+        var postBody = new { lecturerFirstName = LecturerFirstNameField, type = LecturerSecondNameField, lecturerPatronymic = LecturerPatronymicField};
+        using var response = await client.PostAsJsonAsync("https://localhost:44321/api/v1/Lecturers/create", postBody);
+    }
 
-        public string patronymic { get; set; }
+    private void ChangeMode(Guid id)
+    {
+        isEdit = true;
+        activeId = id;
+        var field = data.Find(el => el.id == id);
+        LecturerFirstNameField = field.firstName;
+        LecturerSecondNameField = field.secondName;
+        LecturerPatronymicField = field.patronymic;
+    }
+
+    protected void ResetState()
+    {
+        isEdit = false;
+        activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
     }
 
 #line default

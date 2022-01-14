@@ -108,21 +108,15 @@ using TimetableOfClasses.Frontend.Shared;
 
     public class AudienceType
     {
-
         public Guid id { get; set; }
-
         public int audienceNum { get; set; }
-
         public string type { get; set; }
-
     }
-
 
     protected override async Task OnInitializedAsync()
     {
         data = await Http.GetFromJsonAsync<List<AudienceType>>("Audiences/all");
     }
-
 
     private async Task DeleteItem(Guid id)
     {
@@ -135,17 +129,14 @@ using TimetableOfClasses.Frontend.Shared;
         var postBody = new { audienceNum = AudienceNumField, type = AudienceTypeField };
         using var response = await client.PutAsJsonAsync("https://localhost:44321/api/v1/Audiences/detail/{id}", postBody);
         ResetState();
-
     }
 
     private async Task AddItem()
     {
-
         var client = new HttpClient();
         var postBody = new { audienceNum = AudienceNumField, type = AudienceTypeField };
         using var response = await client.PostAsJsonAsync("https://localhost:44321/api/v1/Audiences/create", postBody);
     }
-
 
     private void ChangeMode(Guid id)
     {

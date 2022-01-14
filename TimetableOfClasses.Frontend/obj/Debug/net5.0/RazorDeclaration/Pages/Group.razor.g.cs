@@ -91,26 +91,67 @@ using TimetableOfClasses.Frontend.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 37 "C:\CSharp\TimetableOfClasses\TimetableOfClasses.Frontend\Pages\Group.razor"
-           
-private GroupType[] data;
+#line 52 "C:\CSharp\TimetableOfClasses\TimetableOfClasses.Frontend\Pages\Group.razor"
+       
+    private List<GroupType> data;
 
-    protected override async Task OnInitializedAsync()
+    public string GroupNumField { get; set; }
+    public int NumOfStudentField { get; set; }
+    private bool isEdit = false;
+    private Guid activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
+
+    public class StateInterface
     {
-        data = await Http.GetFromJsonAsync<GroupType[]>("sample-data/groups.json");
+        public Boolean editActive;
+        public string activeId;
     }
 
     public class GroupType
     {
-
-        public string id { get; set; }
-
-        public string title { get; set; }
-
-        public int numOfStudents { get; set; }
-
+        public Guid id { get; set; }
+        public string groupNum { get; set; }
+        public int numOfStudent { get; set; }
     }
-    
+
+    protected override async Task OnInitializedAsync()
+    {
+        data = await Http.GetFromJsonAsync<List<GroupType>>("Groups/all");
+    }
+
+    private async Task DeleteItem(Guid id)
+    {
+        await Http.DeleteAsync("https://localhost:44321/api/v1/Groups/detail/{id}");
+    }
+
+    private async Task EditItem(Guid id)
+    {
+        var client = new HttpClient();
+        var postBody = new { groupNum = GroupNumField, numOfStudent = NumOfStudentField };
+        using var response = await client.PutAsJsonAsync("https://localhost:44321/api/v1/Groups/detail/{id}", postBody);
+        ResetState();
+    }
+
+    private async Task AddItem()
+    {
+        var client = new HttpClient();
+        var postBody = new { groupNum = GroupNumField, numOfStudent = NumOfStudentField };
+        using var response = await client.PostAsJsonAsync("https://localhost:44321/api/v1/Groups/create", postBody);
+    }
+
+    private void ChangeMode(Guid id)
+    {
+        isEdit = true;
+        activeId = id;
+        var field = data.Find(el => el.id == id);
+        GroupNumField = field.groupNum;
+        NumOfStudentField = field.numOfStudent;
+    }
+
+    protected void ResetState()
+    {
+        isEdit = false;
+        activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
+    }
 
 #line default
 #line hidden

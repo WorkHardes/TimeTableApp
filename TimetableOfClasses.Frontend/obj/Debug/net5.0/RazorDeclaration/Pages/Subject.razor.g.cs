@@ -91,24 +91,63 @@ using TimetableOfClasses.Frontend.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 37 "C:\CSharp\TimetableOfClasses\TimetableOfClasses.Frontend\Pages\Subject.razor"
+#line 48 "C:\CSharp\TimetableOfClasses\TimetableOfClasses.Frontend\Pages\Subject.razor"
        
-    private SubjectType[] data;
+    private List<SubjectType> data;
 
-    protected override async Task OnInitializedAsync()
+    public string SubjectTitleField { get; set; }
+    private bool isEdit = false;
+    private Guid activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
+
+    public class StateInterface
     {
-        data = await Http.GetFromJsonAsync<SubjectType[]>("sample-data/subjects.json");
+        public Boolean editActive;
+        public string activeId;
     }
 
     public class SubjectType
     {
-
-        public string id { get; set; }
-
+        public Guid id { get; set; }
         public string title { get; set; }
+    }
 
-        public string type { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        data = await Http.GetFromJsonAsync<List<SubjectType>>("Subjects/all");
+    }
 
+    private async Task DeleteItem(Guid id)
+    {
+        await Http.DeleteAsync("https://localhost:44321/api/v1/Subjects/detail/{id}");
+    }
+
+    private async Task EditItem(Guid id)
+    {
+        var client = new HttpClient();
+        var postBody = new { subjectTitle = SubjectTitleField };
+        using var response = await client.PutAsJsonAsync("https://localhost:44321/api/v1/Subjects/detail/{id}", postBody);
+        ResetState();
+    }
+
+    private async Task AddItem()
+    {
+        var client = new HttpClient();
+        var postBody = new { subjectTitle = SubjectTitleField };
+        using var response = await client.PostAsJsonAsync("https://localhost:44321/api/v1/Subjects/create", postBody);
+    }
+
+    private void ChangeMode(Guid id)
+    {
+        isEdit = true;
+        activeId = id;
+        var field = data.Find(el => el.id == id);
+        SubjectTitleField = field.title;
+    }
+
+    protected void ResetState()
+    {
+        isEdit = false;
+        activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
     }
 
 #line default
