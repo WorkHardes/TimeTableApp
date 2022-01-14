@@ -1,82 +1,181 @@
-﻿@inject HttpClient Http
+@inject HttpClient Http
 
 
 @page "/timetable"
 
-<h3>Расписание занятий</h3>
+    <div class="d-flex align-items-center mb-3">
+        <h3 class="mb-0">Расписание для группы <b>@FieldValue</b></h3>
+        <div class="p-2">
+            <button class="btn btn-success">По группам</button>
+            <button class="btn btn-secondary">По преподавателям</button>
+            <button class="btn btn-secondary">По аудиториям</button>
+        </div>
+        <div>
+            <input class = "form-control" placeholder="Введите номер группы" @bind-value="FieldValue"/>
+        </div>
+    </div>
 
-@*<table class="table">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Номер аудитории</th>
-            <th>Количество мест для посадки</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (int index = 0; index < data.Length; index++)
-        {
+    <table class="table">
+        <thead>
             <tr>
-                <td>@index++</td>
-                
+                <th>Название предмета</th>
+                <th></th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>*@
+        </thead>
+        <tbody>
+            @foreach (var item in data)
+            {
+            <tr>
+                @if (isEdit && activeId == item.id)
+                {
+                    <td><input class="form-control" type="int" @bind-value="AudienceNumField" /></td>
+                    <td><input class="form-control" type="text" @bind-value="LecturerFirstNameField" /></td>
+                    <td><input class="form-control" type="text" @bind-value="LecturerSecondNameField" /></td>
+                    <td><input class="form-control" type="text" @bind-value="LecturerPatronymicField" /></td>
+                    <td><input class="form-control" type="text" @bind-value="SubjectTitleField" /></td>
+                    <td><input class="form-control" type="text" @bind-value="GroupNumField" /></td>
+                    <td><input class="form-control" type="date" @bind-value="DateField" /></td>
+                    <td><input class="form-control" type="text" @bind-value="DayOfTheWeekField" /></td>
+                                        <td><button type="button" class="btn btn-success" @onclick="() => EditItem(item.id)">Сохранить</button></td>
+                    <td><button type="button" class="btn btn-danger" @onclick="ResetState">Сбросить</button></td>
+                }
+                else
+                {
+                    <td>@item.groupNum</td>
+                    <td><button type="button" class="btn btn-secondary" @onclick="() => ChangeMode(item.id)">Редактировать</button></td>
+                    <td><button type="button" class="btn btn-danger" @onclick="() => DeleteItem(item.id)">Удалить</button></td>
+                }
+            </tr>
+            }
+        <tr>
+            <td><input class="form-control" type="int" @bind-value="AudienceNumField" /></td>
+                    <td><input class="form-control" type="int" @bind-value="AudienceNumField" /></td>
+                    <td><input class="form-control" type="text" @bind-value="LecturerFirstNameField" /></td>
+                    <td><input class="form-control" type="text" @bind-value="LecturerSecondNameField" /></td>
+                    <td><input class="form-control" type="text" @bind-value="LecturerPatronymicField" /></td>
+                    <td><input class="form-control" type="text" @bind-value="SubjectTitleField" /></td>
+                    <td><input class="form-control" type="text" @bind-value="GroupNumField" /></td>
+                    <td><input class="form-control" type="date" @bind-value="DateField" /></td>
+                    <td><input class="form-control" type="text" @bind-value="DayOfTheWeekField" /></td>
+            <td><button type="button" class="btn btn-success" @onclick="AddItem">Добавить</button></td>
+        </tr>
+        </tbody>
+    </table>
 
 
 @code {
-    @*private TimeTableType[] data;*@
-    @*protected override async Task OnInitializedAsync()
-    {
-        data = await Http.GetFromJsonAsync<TimeTableType[]>("https://localhost:44321/api/v1/timeTable/all");
-    }
+    private List<TimeTableType> data;
+    public string FieldValue { get; set; }
+    public string ActiveButton = "groups";
+    private bool isEdit = false;
+    private Guid activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
+    public int AudienceNumField { get; set; }
+    public string LecturerFirstNameField { get; set; }
+    public string LecturerSecondNameField { get; set; }
+    public string LecturerPatronymicField { get; set; }
+    public string SubjectTitleField { get; set; }
+    public string GroupNumField { get; set; }
+    public DateTime DateField { get; set; }
+    public string DayOfTheWeekField { get; set; }
+
 
     public class TimeTableType
     {
-
-        public class Teacher
-        {
-            public string name { get; set; }
-
-            public string surname { get; set; }
-
-            public string patronymic { get; set; }
-        }
-
-        public class GroupType
-        {
-            public string title { get; set; }
-
-        }
-
-        public class AudienceType
-        {
-            public int audienceNum { get; set; }
-
-        }
-
-        public class SubjectType
-        {
-            public string title { get; set; }
-
-            public string type { get; set; }
-
-        }
-
-        public class CoupleType
-        {
-            public int coupleNum { get; set; }
-
-            public int beginTime { get; set; }
-
-            public int endTime { get; set; }
-
-        }
-
-        public string date { get; set; }
-
+        public Guid id { get; set; }
+        public int audienceNum { get; set; }
+        public string lecturerFirstName { get; set; }
+        public string lecturerSecondName { get; set; }
+        public string lecturerPatronymic { get; set; }
+        public string subjectTitle { get; set; }
+        public string groupNum { get; set; }
+        public DateTime date { get; set; }
         public string dayOfTheWeek { get; set; }
+    }
 
-    }*@
-}
+    public class Audience
+    {
+        public Guid id { get; set; }
+        public int audienceNum { get; set; }
+        public string type { get; set; }
+
+    }
+
+    public class Lecturer
+    {
+        public Guid id { get; set; }
+        public string firstName { get; set; }
+        public string secondName { get; set; }
+        public string patronymic { get; set; }
+    }
+
+    public class ClassesTime
+    {
+        public Guid id { get; set; }
+        public int classesTimeNum { get; set; }
+        public string beginTime { get; set; }
+        public string endTime { get; set; }
+    }
+
+
+    public class Subject
+    {
+        public Guid id { get; set; }
+        public string title { get; set; }
+    }
+
+    public class Group
+    {
+        public Guid id { get; set; }
+        public int groupNum { get; set; }
+        public int numOfStudent { get; set; }
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        data = await Http.GetFromJsonAsync<List<TimeTableType>>("TimeTables/all");
+    }
+
+    private async Task DeleteItem(Guid id)
+    {
+        await Http.DeleteAsync("https://localhost:44321/api/v1/TimeTables/detail/{id}");
+    }
+
+    private async Task EditItem(Guid id)
+    {
+        var client = new HttpClient();
+        var postBody = new { audienceNum = AudienceNumField, lecturerFirstName = LecturerFirstNameField, lecturerSecondName = LecturerSecondNameField, lecturerPatronymic = LecturerPatronymicField, subjectTitle = SubjectTitleField, groupNum = GroupNumField, date = DateField, dayOfTheWeek = DayOfTheWeekField };
+        using var response = await client.PutAsJsonAsync("https://localhost:44321/api/v1/TimeTables/detail/{id}", postBody);
+            ResetState();
+        }
+
+        private async Task AddItem()
+        {
+            var client = new HttpClient();
+            var postBody = new { audienceNum = AudienceNumField, lecturerFirstName = LecturerFirstNameField, lecturerSecondName = LecturerSecondNameField, lecturerPatronymic = LecturerPatronymicField, subjectTitle = SubjectTitleField, groupNum = GroupNumField, date = DateField, dayOfTheWeek = DayOfTheWeekField };
+            using var response = await client.PostAsJsonAsync("https://localhost:44321/api/v1/TimeTableTypes/create", postBody);
+        }
+
+        private void ChangeMode(Guid id)
+        {
+            isEdit = true;
+            activeId = id;
+            var field = data.Find(el => el.id == id);
+            AudienceNumField = field.audienceNum;
+            LecturerFirstNameField = field.lecturerFirstName;
+            LecturerSecondNameField = field.lecturerSecondName;
+            LecturerPatronymicField = field.lecturerPatronymic;
+            SubjectTitleField = field.subjectTitle;
+            GroupNumField = field.groupNum;
+            DateField = field.date;
+            DayOfTheWeekField = field.dayOfTheWeek;
+
+        }
+
+        protected void ResetState()
+        {
+            isEdit = false;
+            activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
+        }
+    }
