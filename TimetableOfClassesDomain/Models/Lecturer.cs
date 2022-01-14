@@ -10,7 +10,6 @@ namespace TimetableOfClasses.Domain
         public string SecondName { get; set; }
         public string Patronymic { get; set; }
 
-        // Navigation Properties
         public List<TimeTable> TimeTables { get; set; }
     }
 }
