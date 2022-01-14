@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace TimetableOfClasses.Frontend.Pages
+namespace TimetableOfClasses.Frontend.Pages.Pages
 {
     #line hidden
     using System;
@@ -91,7 +91,7 @@ using TimetableOfClasses.Frontend.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 56 "C:\CSharp\TimetableOfClasses\TimetableOfClasses.Frontend\Pages\ClassesTime.razor"
+#line 55 "C:\CSharp\TimetableOfClasses\TimetableOfClasses.Frontend\Pages\Pages\ClassesTime.razor"
        
     private List<ClassesTimeType> data;
 

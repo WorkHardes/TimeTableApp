@@ -82,8 +82,8 @@ using TimetableOfClasses.Frontend.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/classestime")]
-    public partial class ClassesTime : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/counter")]
+    public partial class Counter : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -91,75 +91,18 @@ using TimetableOfClasses.Frontend.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 56 "C:\CSharp\TimetableOfClasses\TimetableOfClasses.Frontend\Pages\ClassesTime.razor"
+#line 9 "C:\CSharp\TimetableOfClasses\TimetableOfClasses.Frontend\Pages\Counter.razor"
        
-    private List<ClassesTimeType> data;
+    private int currentCount = 0;
 
-    public int ClassesTimeNumField { get; set; }
-    public DateTime ClassesTimeBeginTime { get; set; }
-    public DateTime ClassesTimeEndTime { get; set; }
-    private bool isEdit = false;
-    private Guid activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
-
-    public class StateInterface
+    private void IncrementCount()
     {
-        public Boolean editActive;
-        public string activeId;
-    }
-
-    public class ClassesTimeType
-    {
-        public Guid id { get; set; }
-        public int classesTimeNum { get; set; }
-        public DateTime beginTime { get; set; }
-        public DateTime endTime { get; set; }
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        data = await Http.GetFromJsonAsync<List<ClassesTimeType>>("ClassesTimes/all");
-    }
-
-    private async Task DeleteItem(Guid id)
-    {
-        await Http.DeleteAsync("https://localhost:44321/api/v1/ClassesTimes/detail/{id}");
-    }
-
-    private async Task EditItem(Guid id)
-    {
-        var client = new HttpClient();
-        var postBody = new { classesTimeNum = ClassesTimeNumField, beginTime = ClassesTimeBeginTime, endTime = ClassesTimeEndTime };
-        using var response = await client.PutAsJsonAsync("https://localhost:44321/api/v1/ClassesTimes/detail/{id}", postBody);
-        ResetState();
-    }
-
-    private async Task AddItem()
-    {
-        var client = new HttpClient();
-        var postBody = new { classesTimeNum = ClassesTimeNumField, beginTime = ClassesTimeBeginTime, endTime = ClassesTimeEndTime};
-        using var response = await client.PostAsJsonAsync("https://localhost:44321/api/v1/ClassesTimes/create", postBody);
-    }
-
-    private void ChangeMode(Guid id)
-    {
-        isEdit = true;
-        activeId = id;
-        var field = data.Find(el => el.id == id);
-        ClassesTimeNumField = field.classesTimeNum;
-        ClassesTimeBeginTime = field.beginTime;
-        ClassesTimeEndTime = field.endTime;
-    }
-
-    protected void ResetState()
-    {
-        isEdit = false;
-        activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
+        currentCount++;
     }
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
     }
 }
 #pragma warning restore 1591

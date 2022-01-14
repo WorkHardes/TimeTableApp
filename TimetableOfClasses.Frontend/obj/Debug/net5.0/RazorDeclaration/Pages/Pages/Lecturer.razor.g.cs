@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace TimetableOfClasses.Frontend.Pages
+namespace TimetableOfClasses.Frontend.Pages.Pages
 {
     #line hidden
     using System;
@@ -82,8 +82,8 @@ using TimetableOfClasses.Frontend.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/classestime")]
-    public partial class ClassesTime : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/lecturer")]
+    public partial class Lecturer : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -91,13 +91,13 @@ using TimetableOfClasses.Frontend.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 56 "C:\CSharp\TimetableOfClasses\TimetableOfClasses.Frontend\Pages\ClassesTime.razor"
+#line 55 "C:\CSharp\TimetableOfClasses\TimetableOfClasses.Frontend\Pages\Pages\Lecturer.razor"
        
-    private List<ClassesTimeType> data;
+    private List<LecturerType> data;
 
-    public int ClassesTimeNumField { get; set; }
-    public DateTime ClassesTimeBeginTime { get; set; }
-    public DateTime ClassesTimeEndTime { get; set; }
+    public string LecturerFirstNameField { get; set; }
+    public string LecturerSecondNameField { get; set; }
+    public string LecturerPatronymicField { get; set; }
     private bool isEdit = false;
     private Guid activeId = new Guid("d81c0b4b-a9ce-44c5-d8f3-08d9d6a81919");
 
@@ -107,37 +107,37 @@ using TimetableOfClasses.Frontend.Shared;
         public string activeId;
     }
 
-    public class ClassesTimeType
+    public class LecturerType
     {
         public Guid id { get; set; }
-        public int classesTimeNum { get; set; }
-        public DateTime beginTime { get; set; }
-        public DateTime endTime { get; set; }
+        public string firstName { get; set; }
+        public string secondName { get; set; }
+        public string patronymic { get; set; }
     }
 
     protected override async Task OnInitializedAsync()
     {
-        data = await Http.GetFromJsonAsync<List<ClassesTimeType>>("ClassesTimes/all");
+        data = await Http.GetFromJsonAsync<List<LecturerType>>("Lecturers/all");
     }
 
     private async Task DeleteItem(Guid id)
     {
-        await Http.DeleteAsync("https://localhost:44321/api/v1/ClassesTimes/detail/{id}");
+        await Http.DeleteAsync("https://localhost:44321/api/v1/Lecturers/detail/{id}");
     }
 
     private async Task EditItem(Guid id)
     {
         var client = new HttpClient();
-        var postBody = new { classesTimeNum = ClassesTimeNumField, beginTime = ClassesTimeBeginTime, endTime = ClassesTimeEndTime };
-        using var response = await client.PutAsJsonAsync("https://localhost:44321/api/v1/ClassesTimes/detail/{id}", postBody);
+        var postBody = new { lecturerFirstame = LecturerFirstNameField, type = LecturerSecondNameField, lecturerPatronymic = LecturerPatronymicField};
+        using var response = await client.PutAsJsonAsync("https://localhost:44321/api/v1/Lecturers/detail/{id}", postBody);
         ResetState();
     }
 
     private async Task AddItem()
     {
         var client = new HttpClient();
-        var postBody = new { classesTimeNum = ClassesTimeNumField, beginTime = ClassesTimeBeginTime, endTime = ClassesTimeEndTime};
-        using var response = await client.PostAsJsonAsync("https://localhost:44321/api/v1/ClassesTimes/create", postBody);
+        var postBody = new { lecturerFirstName = LecturerFirstNameField, type = LecturerSecondNameField, lecturerPatronymic = LecturerPatronymicField};
+        using var response = await client.PostAsJsonAsync("https://localhost:44321/api/v1/Lecturers/create", postBody);
     }
 
     private void ChangeMode(Guid id)
@@ -145,9 +145,9 @@ using TimetableOfClasses.Frontend.Shared;
         isEdit = true;
         activeId = id;
         var field = data.Find(el => el.id == id);
-        ClassesTimeNumField = field.classesTimeNum;
-        ClassesTimeBeginTime = field.beginTime;
-        ClassesTimeEndTime = field.endTime;
+        LecturerFirstNameField = field.firstName;
+        LecturerSecondNameField = field.secondName;
+        LecturerPatronymicField = field.patronymic;
     }
 
     protected void ResetState()

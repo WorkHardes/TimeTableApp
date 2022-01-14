@@ -27,8 +27,8 @@ else
                 @if (isEdit && activeId == item.id)
                 {
                     <td><input class="form-control" type="number" @bind-value="ClassesTimeNumField" /></td>
-                    <td><input class="form-control" type="datetime" @bind-value="ClassesTimeBeginTime" /></td>
-                    <td><input class="form-control" type="datetime" @bind-value="ClassesTimeEndTime" /></td>
+                    <td><input class="form-control" type="time" @bind-value="ClassesTimeBeginTime" /></td>
+                    <td><input class="form-control" type="time" @bind-value="ClassesTimeEndTime" /></td>
                     <td><button type="button" class="btn btn-success" @onclick="() => EditItem(item.id)">Сохранить</button></td>
                     <td><button type="button" class="btn btn-danger" @onclick="ResetState">Сбросить</button></td>
                 }
@@ -44,7 +44,8 @@ else
             }
         <tr>
             <td><input class="form-control" type="number" @bind-value="ClassesTimeNumField"/></td>
-            <td><input class="form-control" type="text" @bind-value="ClassesTimeBeginTime"/></td>
+            <td><input class="form-control" type="time" @bind-value="ClassesTimeBeginTime"/></td>
+            <td><input class="form-control" type="time" @bind-value="ClassesTimeEndTime" /></td>
             <td><button type="button" class="btn btn-success" @onclick="AddItem">Добавить</button></td>
         </tr>
         </tbody>
