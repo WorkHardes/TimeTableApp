@@ -126,14 +126,14 @@ using TimetableOfClasses.Frontend.Shared;
 
     private async Task DeleteItem(Guid id)
     {
-        await Http.DeleteAsync("Audiences/detail/{id}");
+        await Http.DeleteAsync("https://localhost:44321/api/v1/Audiences/detail/{id}");
     }
 
     private async Task EditItem(Guid id)
     {
         var client = new HttpClient();
         var postBody = new { audienceNum = AudienceNumField, type = AudienceTypeField };
-        using var response = await client.PutAsJsonAsync("https://localhost:5001/apy/v1/Audiences/detail/{id}", postBody);
+        using var response = await client.PutAsJsonAsync("https://localhost:44321/api/v1/Audiences/detail/{id}", postBody);
         ResetState();
 
     }
@@ -143,11 +143,11 @@ using TimetableOfClasses.Frontend.Shared;
 
         var client = new HttpClient();
         var postBody = new { audienceNum = AudienceNumField, type = AudienceTypeField };
-        using var response = await client.PostAsJsonAsync("https://localhost:5001/apy/v1/Audiences/create", postBody);
+        using var response = await client.PostAsJsonAsync("https://localhost:44321/api/v1/Audiences/create", postBody);
     }
 
 
-    private async Task ChangeMode(Guid id)
+    private void ChangeMode(Guid id)
     {
         isEdit = true;
         activeId = id;

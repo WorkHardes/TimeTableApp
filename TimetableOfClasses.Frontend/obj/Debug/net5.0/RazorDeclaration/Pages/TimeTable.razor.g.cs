@@ -82,7 +82,7 @@ using TimetableOfClasses.Frontend.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/schedule")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/timetable")]
     public partial class TimeTable : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
